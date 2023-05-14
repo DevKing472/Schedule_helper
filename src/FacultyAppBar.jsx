@@ -11,11 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Home','Exam TimeTable', 'Your Schedule'];
+const settings = ['Edit Profile', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -45,7 +44,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -67,9 +65,11 @@ function ResponsiveAppBar() {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -95,8 +95,8 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
+          {/* <AutoStoriesIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -112,8 +112,8 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
-          </Typography>
+            Logo
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -128,8 +128,9 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0,backgroundColor: "white",height: "42px",width: "42px" }}>
+                <Avatar sx = {{background: "lightgrey",color: "black"}}alt="K" src="/static/images/avatar/2.jpg" />
+                {/* <Typography variant="body1"  sx={{fontWeight: 'bold',fontSize: '1.2rem',color: "#A82121"}}>A</Typography> */}
               </IconButton>
             </Tooltip>
             <Menu

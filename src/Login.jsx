@@ -61,6 +61,7 @@ class OTPForm extends React.Component
     if(await this.handle_otp_backend(otp))//send the OTP to backend and check if it is valid.
     {
       alert("Sucessful Login")
+      window.location.href = "/facultydashboard"
       this.setState({ otpError: false });
     }
     else{
@@ -160,7 +161,7 @@ class LoginForm extends React.Component
 
     if(backend_resp.isLoggedin)
     {
-      window.location.href = "/dashboard"
+      window.location.href = "/facultydashboard"
     }
     else 
     {
