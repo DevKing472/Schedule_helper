@@ -20,6 +20,8 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const userName = localStorage.getItem("UserName")
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -129,7 +131,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0,backgroundColor: "white",height: "42px",width: "42px" }}>
-                <Avatar sx = {{background: "lightgrey",color: "black"}}alt="K" src="/static/images/avatar/2.jpg" />
+                <Avatar sx = {{background: "lightgrey",color: "black"}} alt={userName} src="/static/images/avatar/2.jpg" />
                 {/* <Typography variant="body1"  sx={{fontWeight: 'bold',fontSize: '1.2rem',color: "#A82121"}}>A</Typography> */}
               </IconButton>
             </Tooltip>

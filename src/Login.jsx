@@ -26,6 +26,7 @@ class OTPForm extends React.Component
       {
         //proceed to otp component
         localStorage.setItem("UserEmail",response.email)
+        localStorage.setItem("UserName",response.name)
         return true;
       }
       else if(response.status === 404)
@@ -114,6 +115,7 @@ class LoginForm extends React.Component
               isLoggedin: true
             }
       localStorage.setItem("UserEmail",return_obj.email)
+      localStorage.setItem("UserName",return_obj.name)
 
       return return_obj;
     }
@@ -161,7 +163,7 @@ class LoginForm extends React.Component
 
     if(backend_resp.isLoggedin)
     {
-      window.location.href = "/facultydashboard"
+      window.location.replace('/facultydashboard');
     }
     else 
     {
