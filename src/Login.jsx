@@ -359,7 +359,6 @@ class Login extends React.Component {
 
   }
 
-
   render() 
   {
     // Your login JSX code goes here

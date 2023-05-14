@@ -16,9 +16,10 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 const pages = ['Home','Exam TimeTable', 'Your Schedule'];
 const settings = ['Edit Profile', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
 
   const userName = localStorage.getItem("UserName")
 
@@ -36,6 +37,10 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = () => {
+    window.location.replace("/")
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#A82121' }}>
@@ -90,11 +95,24 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {/* {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
+
+                <MenuItem >
+                  <Typography textAlign="center">Home</Typography>
+                </MenuItem>
+
+                <MenuItem >
+                  <Typography textAlign="center">Exam TimeTable</Typography>
+                </MenuItem>
+
+                <MenuItem >
+                  <Typography textAlign="center">Your Schedule</Typography>
+                </MenuItem>
+
             </Menu>
           </Box>
           {/* <AutoStoriesIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -151,11 +169,14 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="Edit Profile" >
+                <Typography textAlign="center">Edit Profile</Typography>
+              </MenuItem>
+
+              <MenuItem key="Logout" onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+
             </Menu>
           </Box>
         </Toolbar>
