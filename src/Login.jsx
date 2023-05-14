@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useRef} from 'react';
+
 import './Login.css'
 import image1 from './assets/log.svg';
 import image2 from './assets/register.svg';
@@ -13,10 +14,40 @@ class OTPForm extends React.Component
     this.state = {
       otpError: false
     };
+  }
 
+  async handle_otp_backend(otp)
+  {
+    try{
+
+      const response = await axios.post("http://localhost:5000/otp_handle",{ email: this.props.sharedEmail,otp: otp });
+  
+      if(response.status === 200)
+      {
+        //proceed to otp component
+        localStorage.setItem("UserEmail",response.email)
+        return true;
+      }
+      else if(response.status === 404)
+      {
+        //print error that email not found
+        alert("Email is not Registered with us. Please check again!")
+        return false
+      }
+      else{
+        alert("Cannot Connect with Server")
+        return false
+      }
+      }
+      catch(e)
+      {
+        console.log(e)
+        return false
+      }
   }
 
   handleSubmit = async (event) => {
+
     event.preventDefault();
     let otp = event.target.elements.register_otp.value;
 
@@ -27,8 +58,14 @@ class OTPForm extends React.Component
       this.setState({ otpError: false });
     }
 
-    handle_otp_backend()//send the OTP to backend and check if it is valid.
-
+    if(await this.handle_otp_backend(otp))//send the OTP to backend and check if it is valid.
+    {
+      alert("Sucessful Login")
+      this.setState({ otpError: false });
+    }
+    else{
+      this.setState({ otpError: true });
+    }
   };
 
   render()
@@ -41,8 +78,7 @@ class OTPForm extends React.Component
       <input type="OTP" placeholder="Your OTP" name = "register_otp" required/> 
       </div>
       {this.state.otpError && <ErrorMsg message="Please Enter a Valid OTP"/>}
-      <input type="submit" class="btn" value="Send OTP" name="signup_user"/>
-      
+      <input type="submit" class="btn" value="Submit OTP" name="submit_otp"/>
     </form>
     )
   }
@@ -57,6 +93,8 @@ class LoginForm extends React.Component
     this.state = {
       loginError: false
     };
+
+    this.buttonRef = React.createRef();
 
   }
 
@@ -74,7 +112,8 @@ class LoginForm extends React.Component
               email: response.data.email,
               isLoggedin: true
             }
-      
+      localStorage.setItem("UserEmail",return_obj.email)
+
       return return_obj;
     }
     else if(response.status === 404){
@@ -98,6 +137,7 @@ class LoginForm extends React.Component
     event.preventDefault();
     let email = event.target.elements.user_email.value;
     let password = event.target.elements.user_password.value;
+
     if (email.trim() !== '') 
     {
       this.setState({ loginError: false });
@@ -120,7 +160,7 @@ class LoginForm extends React.Component
 
     if(backend_resp.isLoggedin)
     {
-      alert(backend_resp.name+" "+backend_resp.email)
+      window.location.href = "/dashboard"
     }
     else 
     {
@@ -181,19 +221,6 @@ function ErrorMsg({message})
     </div>
     );
   }
-
-  // function Greeting(props) 
-  // {
-
-  //   const[]
-
-  //   const isLoggedIn = props.isLoggedIn;
-  //   if (isLoggedIn) {
-  //     return <UserGreeting />;
-  //   }
-  //   return <GuestGreeting />;
-  // }
-  // idea to have an external function to switch between components
 
 
 class ForgetPassword extends React.Component
@@ -257,6 +284,7 @@ class ForgetPassword extends React.Component
       alert("OTP sent")
       this.setState({ forgetError: false });
       this.props.updateSharedVariable(1);
+      this.props.updateSharedEmail(email)
       alert(this.props.sharedVariable)
     }
     else 
@@ -295,8 +323,15 @@ class Login extends React.Component {
   {
     super(props);
     this.state = {
-      forget_counter : 0
+      forget_counter : 0,
+      sharedEmail: ""
     }
+  }
+
+  updateSharedEmail = (new_email) => {
+    this.setState({
+      sharedEmail : new_email
+    })
   }
 
   updateSharedVariable = (newValue) => {
@@ -307,7 +342,6 @@ class Login extends React.Component {
 
   componentDidMount() {
     // JavaScript code specific to the login page can be placed here
-    
     const sign_in_btn = document.querySelector('#sign-in-btn');
     const sign_up_btn = document.querySelector('#sign-up-btn');
     const container = document.querySelector('.container');
@@ -322,17 +356,6 @@ class Login extends React.Component {
 
   }
 
-  // return_child()
-  // {
-  //   if(this.state.forget_counter == 0)
-  //   {
-  //       return <ForgetPassword sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
-  //   }
-  //   else if(this.state.forget_counter == 1)
-  //   {
-  //     return <ForgetPassword sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
-  //   }
-  // }
 
   render() 
   {
@@ -343,20 +366,15 @@ class Login extends React.Component {
         <div class="forms-container">
           <div class="signin-signup">
 
-        <LoginForm sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
+        <LoginForm sharedVariable={this.state.forget_counter} sharedEmail={this.state.sharedEmail} updateSharedVariable={this.updateSharedVariable}/>
 
         {this.state.forget_counter == 0 && (
-         <ForgetPassword sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
-
+         <ForgetPassword sharedVariable={this.state.forget_counter} sharedEmail={this.state.sharedEmail} updateSharedEmail={this.updateSharedEmail} updateSharedVariable={this.updateSharedVariable}/>
         )}
         {this.state.forget_counter == 1 && (
-          <OTPForm sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
+          <OTPForm sharedVariable={this.state.forget_counter} sharedEmail={this.state.sharedEmail} updateSharedEmail={this.updateSharedEmail} updateSharedVariable={this.updateSharedVariable}/>
 
           // <LoginForm sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
-        )}
-        {this.state.forget_counter == 2 && (
-          <LoginForm sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>
-
         )}
 
         </div>

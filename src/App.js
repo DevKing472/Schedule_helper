@@ -1,11 +1,15 @@
 import React from 'react';
-import Login from './Login.jsx';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
+import Login from './Login.jsx';
+import ResponsiveAppBar from "./Dashboard.jsx"
+
+function App() {  
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<ResponsiveAppBar />} />
+      </Routes>
   );
 }
 
