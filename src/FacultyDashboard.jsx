@@ -16,6 +16,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
+import ExamScheduleTable from './View_Schedule';
+
 function FacultyDashboard() 
 {
 
@@ -68,7 +70,7 @@ function FacultyDashboard()
       case 'Your Schedule':
         return <div>Hello</div>;
       case 'Exam TimeTable':
-        return <div>Hello World</div>;
+        return <ExamScheduleTable/>;
       default:
         return null;
     }

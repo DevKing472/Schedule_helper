@@ -1,0 +1,52 @@
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .exam-schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: black;
+    margin: 2rem;
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  }
+  
+  .exam-schedule table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .exam-schedule table th,
+  .exam-schedule table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+  }
+  
+  .exam-schedule table tr:nth-child(even) {
+    background-color: #D3D3D3;
+  }
+  
+  /* Add this CSS code to your existing CSS file */
+
+.schedule-container th button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #000;
+  }
+  
+  .schedule-container th button svg {
+    font-size: 1.5rem;
+  }
+  
