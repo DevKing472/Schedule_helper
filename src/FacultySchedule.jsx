@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
+import axios from 'axios';
+
 
 
 const alertData = [
@@ -19,7 +21,7 @@ const Table = ({ data }) => (
     <thead>
       <tr style={{ backgroundColor: '#A82121', color: '#FFF' }}>
         <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center', width: '25%' }}>Date</th>
-        <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Description</th>
+        <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Course Name</th>
         <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Hall Allotted</th>
       </tr>
     </thead>
@@ -28,7 +30,7 @@ const Table = ({ data }) => (
         <tr key={index}>
           <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center', width: '25%' }}>{alert.date}</td>
           <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.course}</td>
-          <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.hall}</td>
+          <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.Hall}</td>
         </tr>
       ))}
     </tbody>
@@ -47,6 +49,49 @@ Table.propTypes = {
 
 
 export default function FacultySchedule() {
+
+  const username = localStorage.getItem("UserName")
+
+  const [scheduleData, setScheduleData] = useState([]);
+
+
+  useEffect(() => {
+
+    async function fetchSchedule(username)
+    {
+      console.log("Recieved request for fetch alerts")
+      try{
+        const response = await axios.post("http://localhost:5000/fetch_faculty_sched",{name: username});
+    
+        if(response.status === 200)
+        {
+          let schedval = response.data.schedulerecords
+
+          schedval.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+          setScheduleData(schedval)
+        }
+        else if(response.status === 404)
+        {
+          
+        }
+        else{
+          alert("Cannot Connect with Server")
+          return;
+        }
+    
+        }
+        catch(e)
+        {
+          alert(e)
+        }
+  
+        console.log(JSON.stringify(alertData))
+    }
+  
+      fetchSchedule(username);
+    }, []);
+
   return (
     <div style={{ marginLeft: '4%', marginTop: '5%' }}>
       <Card sx={{ maxWidth: '95%', boxShadow: '0 4px 8px #A82121' }} variant='outlined'>
@@ -58,7 +103,7 @@ export default function FacultySchedule() {
           <hr style={{ color: '#A82121' }} />
           <Grid container spacing={2} direction="column">
             <Grid item xs={12}>
-              <Table data={alertData} />
+              <Table data={scheduleData} />
             </Grid>
           </Grid>
         </CardContent>

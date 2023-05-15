@@ -1,20 +1,12 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
-
-
-const alertData = [
-    { date: '2023-05-14', description: 'Alert description 1' },
-    { date: '2023-05-15', description: 'Alert description 2' },
-    { date: '2023-04-16', description: 'Alert description 3' },
-  ];
-
-  alertData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort the array by date in descending order
-
+import axios from 'axios';  
+ 
   const Table = ({ data }) => (
     <table style={{ width: '100%', borderCollapse: 'collapse',marginTop:"10px" }}>
       <thead>
@@ -44,8 +36,51 @@ const alertData = [
   };
 
 export default function CardDemo() {
+
+  const [alertData, setAlertData] = useState([]);
+
+  // alertData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort the array by date in descending order
+
+  useEffect(() => {
+
+  async function fetchAlerts()
+  {
+    console.log("Recieved request for fetch alerts")
+    try{
+      const response = await axios.post("http://localhost:5000/fetch_faculty_alerts",{});
+  
+      if(response.status === 200)
+      {
+        let alertval = response.data.alertrecords
+
+        alertval.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        setAlertData(alertval)
+        
+      }
+      else if(response.status === 404)
+      {
+        
+      }
+      else{
+        // alert("Cannot Connect with Server")
+        return;
+      }
+  
+      }
+      catch(e)
+      {
+        // alert(e)
+      }
+
+      console.log(JSON.stringify(alertData))
+  }
+
+    fetchAlerts();
+  }, []);
+
   return (
-    <div style={{ marginLeft:'4%',marginTop: "3%" }}>
+    <div style={{ marginLeft:'4%',marginTop: "3%" }} >
       <Card sx={{ maxWidth: '100%', boxShadow: '0 4px 8px #A82121' }} variant='outlined'>
         <CardContent>
           <Typography variant='h3' gutterBottom>

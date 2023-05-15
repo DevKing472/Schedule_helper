@@ -16,7 +16,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
-function FacultyDashboard() {
+function FacultyDashboard() 
+{
 
   const username = localStorage.getItem("UserName")
 
