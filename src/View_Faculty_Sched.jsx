@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import './View_Schedule.css';
+import './View_Faculty_Sched.css';
 
 import data from './sample_data';
 
@@ -16,17 +16,19 @@ import axios from 'axios';
 // import { Formik, Field, Form as FormikForm, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const ExamScheduleTable = () => {
-  const [ scheduleData, setScheduleData ] = useState( [] );
+const FacultyScheduleTable = () => {
+  const [ scheduleData, setScheduleData ] = useState( [data] );
   const [ modalShow, setModalShow ] = React.useState( false );
+
+  const username = localStorage.getItem("UserName")
 
   useEffect(() => {
 
     async function fetchAlerts()
     {
-      console.log("Recieved request for fetch view schedule")
+      console.log("Recieved request for Faculty view schedule")
       try{
-        const response = await axios.post("http://localhost:5000/fetch_view_table",{});
+        const response = await axios.post("http://localhost:5000/fetch_faculty_sched",{name: username});
     
         if(response.status === 200)
         {
@@ -235,12 +237,12 @@ const ExamScheduleTable = () => {
                   <FontAwesomeIcon icon={ faSort } />
                 </button>
               </th>
-              <th>
+              {/* <th>
                 Invigilator&nbsp;
                 <button onClick={ sortDataInvigilator }>
                   <FontAwesomeIcon icon={ faSort } />
                 </button>
-              </th>
+              </th> */}
               <th>
                 Hall Alloted&nbsp;
                 <button onClick={ sortDataHall }>
@@ -255,7 +257,7 @@ const ExamScheduleTable = () => {
                 <td>{ schedule.date }</td>
                 <td>{ schedule.TimeSlot }</td>
                 <td>{ schedule.course }</td>
-                <td>{ schedule.Invigilator }</td>
+                {/* <td>{ schedule.Invigilator }</td> */}
                 <td>{ schedule.Hall }</td>
               </tr>
             ) ) }
@@ -276,4 +278,4 @@ const ExamScheduleTable = () => {
   );
 };
 
-export default ExamScheduleTable;
+export default FacultyScheduleTable;

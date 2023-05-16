@@ -19,14 +19,14 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ExamScheduleTable from './View_Schedule';
 import FacultyScheduleTable from './View_Faculty_Sched';
 import EditProfile from './Edit_Profile';
+import AdminEditCard from "./AdminEditCard"
 
-function FacultyDashboard() 
+function AdminDashboard() 
 {
 
   const username = localStorage.getItem("UserName")
 
   const [activePage, setActivePage] = useState('Home');
-
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -67,7 +67,7 @@ function FacultyDashboard()
               <CardDemo/>
             </div>
             <div style={{ flex: 4 }}>
-              <FacultySchedule />
+              <AdminEditCard />
             </div>
           </div>
         )
@@ -223,4 +223,4 @@ function FacultyDashboard()
     </div>
   );
 }
-export default FacultyDashboard;
+export default AdminDashboard;

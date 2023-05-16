@@ -112,6 +112,7 @@ class LoginForm extends React.Component
       let return_obj = {
               name: response.data.name,
               email: response.data.email,
+              userType: response.data.userType,
               isLoggedin: true
             }
       localStorage.setItem("UserEmail",return_obj.email)
@@ -161,9 +162,13 @@ class LoginForm extends React.Component
 
     const backend_resp = await this.backendauth(email,password)
 
-    if(backend_resp.isLoggedin)
+    if(backend_resp.isLoggedin && backend_resp.userType == "Faculty")
     {
       window.location.replace('/facultydashboard');
+    }
+    else if(backend_resp.isLoggedin && backend_resp.userType == "Admin")
+    {
+      window.location.replace("admindashboard")
     }
     else 
     {

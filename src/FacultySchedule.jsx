@@ -7,7 +7,6 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 
 
-
 const alertData = [
   { date: '2023-05-14', course: 'Alert description 1', hall: 'Hall A' },
   { date: '2023-05-15', course: 'Alert description 2', hall: 'Hall B' },
@@ -76,14 +75,14 @@ export default function FacultySchedule() {
           
         }
         else{
-          alert("Cannot Connect with Server")
+          // alert("Cannot Connect with Server")
           return;
         }
     
         }
         catch(e)
         {
-          alert(e)
+          // alert(e)
         }
   
         console.log(JSON.stringify(alertData))
