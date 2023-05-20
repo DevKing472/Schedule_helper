@@ -1,4 +1,4 @@
-import React,{useRef} from 'react';
+import React from 'react';
 
 import './Login.css'
 import image1 from './assets/log.svg';
@@ -291,7 +291,7 @@ class ForgetPassword extends React.Component
     {
       alert("OTP sent")
       this.setState({ forgetError: false });
-      this.props.updateSharedVariable(1);
+      this.props.SharedVariable(1);
       this.props.updateSharedEmail(email)
       alert(this.props.sharedVariable)
     }

@@ -1,37 +1,9 @@
 import React, { useState,useEffect } from "react";
-import './Edit_Profile.css';
+import './Admin_Edit_Profile.css';
 import axios from 'axios';
 
 
-const EditProfile = () => {
-//   const names = [
-//     "Kishore",
-//     "Pradeep",
-//     "Adithya",
-//     "Jayandar",
-//     "Logeswaran",
-//   ];
-//   const names1 = [
-//     "Shanmugam",
-//     "Karthik",
-//     "Sriram",
-//     "Srinivasan",
-//     "SR",
-//   ];
-//   const mailId = [
-//     "kishore@gmail.com",
-//     "pradeep@gmail.com",
-//     "adithya@gmail.com",
-//     "jayandar@gmail.com",
-//     "logeswaran@gmail.com",
-//   ];
-//   const phNos = [
-//     "9444583994",
-//     "8825824693",
-//     "9840089742",
-//     "9025783887",
-//     "8438389048",
-//   ];
+const Admin_Edit_Profile = () => {
 
     const [ProfileData,setProfileData] = useState({})//useState({"fname":"Pradeep","lname":"Karthik M","email": "cb.en.u4cse20447@cb.students.amrita.edu","mobile":"8825824693","designation":"Professor","department":"CSE","email_sub":"yes"});
 
@@ -43,8 +15,6 @@ const EditProfile = () => {
   const [phone, setPhone] = useState(ProfileData.mobile);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [designation, setDesignation] = useState(ProfileData.designation);
-  const [department, setDepartment] = useState(ProfileData.department);
   const [emailNotifications, setEmailNotifications] = useState(ProfileData.email_sub);
   const [updatedValues, setUpdatedValues] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -66,8 +36,6 @@ const EditProfile = () => {
           setLastName(alertval.lname)
           setEmail(alertval.email)
           setPhone(alertval.mobile)
-          setDesignation(alertval.designation)
-          setDepartment(alertval.department)
           setEmailNotifications(alertval.email_sub)
           
         }
@@ -115,14 +83,6 @@ const EditProfile = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleChangeDesignation = (e) => {
-    setDesignation(e.target.value);
-  };
-
-  const handleChangeDepartment = (e) => {
-    setDepartment(e.target.value);
-  };
-
   const handlenotificationsetter = (e) => {
     setEmailNotifications(true);
   };
@@ -163,15 +123,13 @@ const EditProfile = () => {
         email: modifiedValues.email,
         mobile: modifiedValues.phone,
         password: modifiedValues.newPassword,
-        designation: modifiedValues.designation,
-        department: modifiedValues.department,
         email_sub: modifiedValues.emailNotifications
 
     }
 
     console.log("Recieved request for facult edit profile")
       try{
-        const response = await axios.post("http://localhost:5000/update_edit_profile",tosend);
+        const response = await axios.post("http://localhost:5000/update_admin_profile",tosend);
     
         if(response.status === 200)
         {
@@ -203,8 +161,6 @@ const EditProfile = () => {
       phone,
       newPassword,
       confirmPassword,
-      designation,
-      department,
       emailNotifications,
     };
     setUpdatedValues(modifiedValues);
@@ -214,8 +170,8 @@ const EditProfile = () => {
     setPhone(modifiedValues.phone);
     setNewPassword(modifiedValues.newPassword);
     setConfirmPassword(modifiedValues.confirmPassword);
-    setDesignation(modifiedValues.designation);
-    setDepartment(modifiedValues.department);
+    // setDesignation(modifiedValues.designation);
+    // setDepartment(modifiedValues.department);
     setEmailNotifications(modifiedValues.emailNotifications);
     setIsUpdated(true); 
 
@@ -338,184 +294,6 @@ const EditProfile = () => {
         </div>
 
         <div className="formbold-input-radio-wrapper">
-          <label htmlFor="designation" className="formbold-form-label">
-            Designation
-          </label>
-
-          <div className="formbold-radio-flex">
-            <div className="formbold-radio-group">
-              <label className="formbold-radio-label">
-                <input
-                  className="formbold-input-radio"
-                  type="radio"
-                  name="designation"
-                  id="professor"
-                  value="Professor"
-                  checked={designation === "Professor"}
-                  onChange={handleChangeDesignation}
-                />
-                Professor
-                <span className="formbold-radio-checkmark"></span>
-              </label>
-            </div>
-
-            <div className="formbold-radio-group">
-              <label className="formbold-radio-label">
-                <input
-                  className="formbold-input-radio"
-                  type="radio"
-                  name="designation"
-                  id="assistantProfessor"
-                  value="Assistant Professor"
-                  checked={designation === "Assistant Professor"}
-                  onChange={handleChangeDesignation}
-               
-                  />
-                  Assistant Professor
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="designation"
-                    id="associateProfessor"
-                    value="Associate Professor"
-                    checked={designation === "Associate Professor"}
-                    onChange={handleChangeDesignation}
-                  />
-                  Associate Professor
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-            </div>
-          </div>
-  
-          <div className="formbold-input-radio-wrapper">
-            <label htmlFor="department" className="formbold-form-label">
-              Department
-            </label>
-  
-            <div className="formbold-radio-flex">
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="department"
-                    id="cse"
-                    value="CSE"
-                    checked={department === "CSE"}
-                    onChange={handleChangeDepartment}
-                  />
-                  CSE
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="department"
-                    id="cse-ai"
-                    value="CSE - AI"
-                    checked={department === "CSE - AI"}
-                    onChange={handleChangeDepartment}
-                  />
-                  CSE - AI
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="department"
-                    id="ece"
-                    value="ECE"
-                    checked={department === "ECE"}
-                    onChange={handleChangeDepartment}
-                  />
-                  ECE
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="department"
-                    id="eee"
-                    value="EEE"
-                    checked={department === "EEE"}
-                    onChange={handleChangeDepartment}
-                  />
-                  EEE
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="department"
-                    id="cce"
-                    value="CCE"
-                    checked={department === "CCE"}
-                    onChange={handleChangeDepartment}
-                  />
-                  CCE
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-              <div className="formbold-radio-group">
-                <label className="formbold-radio-label">
-                  <input
-                    className="formbold-input-radio"
-                    type="radio"
-                    name="department"
-                    id="cvl"
-                    value="CVL"
-                    checked={department === "CVL"}
-                    onChange={handleChangeDepartment}
-                  />
-                  CVL
-                  <span className="formbold-radio-checkmark"></span>
-                </label>
-              </div>
-  
-             
-              <div className="formbold-radio-group">
-              <label className="formbold-radio-label">
-                <input
-                  className="formbold-input-radio"
-                  type="radio"
-                  name="department"
-                  id="mee"
-                  value="MEE"
-                  checked={department === "MEE"}
-                  onChange={handleChangeDepartment}
-                />
-                MEE
-                <span className="formbold-radio-checkmark"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div className="formbold-input-radio-wrapper">
           <label htmlFor="emailNotifications" className="formbold-form-label">
             Email Notifications
           </label>
@@ -564,5 +342,5 @@ const EditProfile = () => {
 );
 };
 
-export default EditProfile;
+export default Admin_Edit_Profile;
   

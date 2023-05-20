@@ -2,7 +2,6 @@ import * as React from 'react';
 import {useState} from 'react'
 import Typography from '@mui/material/Typography';
 import CardDemo  from './FacultyAlerts';
-import FacultySchedule from './FacultySchedule';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,15 +14,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-
-import ExamScheduleTable from './View_Schedule';
-import FacultyScheduleTable from './View_Faculty_Sched';
-import EditProfile from './Edit_Profile';
-import AdminEditCard from "./AdminEditCard"
+import ExamScheduleTable from './View_Schedule/View_Schedule';
+import FacultyScheduleTable from './View_Faculty_Sched/View_Faculty_Sched';
+import Admin_Edit_Profile from "./Admin_Edit_Profile/Admin_Edit_Profile"
+import AdminEditCard from "./assets/Admin_Edit_Card/AdminEditCard"
+import ExamTable from './Modify_Table/Modily_Table';
 
 function AdminDashboard() 
 {
-
   const username = localStorage.getItem("UserName")
 
   const [activePage, setActivePage] = useState('Home');
@@ -50,7 +48,7 @@ function AdminDashboard()
     window.location.replace("/")
   }
 
-  const handleSchedule = () => {setActivePage("Your Schedule")}
+  const handleModify = () => {setActivePage("Modify Schedule")}
 
   const handleExam = () => {setActivePage("Exam TimeTable")}
 
@@ -71,12 +69,12 @@ function AdminDashboard()
             </div>
           </div>
         )
-      case 'Your Schedule':
-        return <FacultyScheduleTable/>;
+      case 'Modify Schedule':
+        return <ExamTable/>;
       case 'Exam TimeTable':
         return <ExamScheduleTable/>;
       case "Edit Profile":
-        return <EditProfile/>
+        return <Admin_Edit_Profile/>
       default:
         return null;
     }
@@ -151,7 +149,7 @@ function AdminDashboard()
                 </MenuItem>
 
                 <MenuItem >
-                  <Typography textAlign="center">Your Schedule</Typography>
+                  <Typography textAlign="center">Modify Schedule</Typography>
                 </MenuItem>
 
             </Menu>
@@ -173,10 +171,10 @@ function AdminDashboard()
                 </Button>
 
                 <Button
-                onClick={handleSchedule}
+                onClick={handleModify}
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                Your Schedule
+                Modify Schedule
                 </Button>
 
           </Box>

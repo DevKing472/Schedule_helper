@@ -15,10 +15,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-
-import ExamScheduleTable from './View_Schedule';
-import FacultyScheduleTable from './View_Faculty_Sched';
-import EditProfile from './Edit_Profile';
+import ExamScheduleTable from './View_Schedule/View_Schedule';
+import FacultyScheduleTable from './View_Faculty_Sched/View_Faculty_Sched';
+import Faculty_Edit_Profile from './Faculty_Edit_Profile/Faculty_Edit_Profile';
 
 function FacultyDashboard() 
 {
@@ -76,7 +75,7 @@ function FacultyDashboard()
       case 'Exam TimeTable':
         return <ExamScheduleTable/>;
       case "Edit Profile":
-        return <EditProfile/>
+        return <Faculty_Edit_Profile/>
       default:
         return null;
     }

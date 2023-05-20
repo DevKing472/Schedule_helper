@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import './View_Schedule.css';
 
-import data from './sample_data';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 
