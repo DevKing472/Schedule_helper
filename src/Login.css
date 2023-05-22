@@ -22,7 +22,8 @@ input {
   overflow: hidden;
 }
 
-.container:before {
+.container:before 
+{
   content: '';
   position: absolute;
   height: 2000px;
@@ -46,13 +47,10 @@ input {
 
 form {
   display: flex;
-  /*Distributes Flex-items along the Cross Axis */
   align-items: center;
-  /*Distributes Flex-items along the Main Axis */
   justify-content: center;
   flex-direction: column;
   padding: 0 5rem;
-  /*overflow: hidden;*/
   padding: 0rem 5rem;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
@@ -227,7 +225,6 @@ form.sign-up-form {
   height: 50px;
   font-weight: 600;
   font-size: 0.9rem;
-  
 }
 
 .image {

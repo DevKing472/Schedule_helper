@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './Login.css'
 import image1 from './assets/log.svg';
 import image2 from './assets/register.svg';
@@ -188,8 +187,14 @@ class LoginForm extends React.Component
             <h2 class="title">Log In</h2>
             <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="email" placeholder="Email-id" name="user_email" />
+            <input type="email" placeholder="Email-id" name="user_email" style={{border: "none"}} />
             </div>
+
+            {/* <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="email" placeholder="Email-id" name="user_email"/>
+            </div> */}
+
             <div class="input-field">
             <i class="fas fa-lock"></i>
             <input type="password" placeholder="Password" name="user_password"  />
@@ -314,7 +319,7 @@ class ForgetPassword extends React.Component
           <h2 class="title">Forget Password</h2>
           <div class="input-field">
           <i class="fas fa-envelope"></i>
-          <input type="email" placeholder="Your Registered Email" name = "register_email" required/> 
+          <input type="email" placeholder="Your Registered Email" name = "register_email" required style={{border: "none"}} /> 
           </div>
           {forgetError && <ErrorMsg message="Please Provide a Valid Email"/>}
           <input type="submit" class="btn" value="Send OTP" name="signup_user"/>

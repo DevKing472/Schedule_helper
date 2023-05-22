@@ -1,51 +1,90 @@
-import React, { useState } from "react";
-import Button from '@mui/material/Button';
+import React, { useState,useEffect } from "react";
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import "./Modify_Table.css";
+import axios from "axios";
 
 const ExamTable = () => {
   // set initial state with the given JSON data
-  const [exams, setExams] = useState([
+  const [exams, setExams] = useState([]);
+  //   {
+  //     id: "1",
+  //     date: "2023-06-01",
+  //     TimeSlot: "Afternoon",
+  //     course: "History",
+  //     Invigilator: "John Doe",
+  //     Hall: "Hall A"
+  //   },
+  //   {
+  //     _id: "2",
+  //     date: "2023-06-02",
+  //     TimeSlot: "Forenoon",
+  //     course: "Mathematics",
+  //     Invigilator: "Jane Smith",
+  //     Hall: "Hall B"
+  //   },
+  //   {
+  //     _id: "3",
+  //     date: "2023-06-03",
+  //     TimeSlot: "Afternoon",
+  //     course: "Biology",
+  //     Invigilator: "Dav_id Lee",
+  //     Hall: "Hall C"
+  //   }
+  // ]);
+
+  const [fetchBackend,setfectchBackend] = useState(false);
+
+  useEffect(() => {
+
+    async function fetchAlerts()
     {
-      id: "1",
-      date: "2023-06-01",
-      timeSlot: "Afternoon",
-      courseName: "History",
-      invigilator: "John Doe",
-      hall: "Hall A"
-    },
-    {
-      id: "2",
-      date: "2023-06-02",
-      timeSlot: "Forenoon",
-      courseName: "Mathematics",
-      invigilator: "Jane Smith",
-      hall: "Hall B"
-    },
-    {
-      id: "3",
-      date: "2023-06-03",
-      timeSlot: "Afternoon",
-      courseName: "Biology",
-      invigilator: "David Lee",
-      hall: "Hall C"
+      console.log("Recieved request for fetch view schedule")
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      // alert("hello")
+      try{
+        const response = await axios.post("http://localhost:5000/fetch_view_table",{});
+    
+        if(response.status === 200)
+        {
+          let dataval = response.data.schedulerecords
+  
+          dataval.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        console.log(dataval)
+  
+          setExams(dataval)
+          
+        }
+        else if(response.status === 404)
+        {
+          
+        }
+        else{
+          // alert("Cannot Connect with Server")
+          return;
+        }
+    
+        }
+        catch(e)
+        {
+          alert(e)
+        }
     }
-  ]);
+    fetchAlerts();
+  }, [fetchBackend]);
 
   // set initial state for the form fields
   const [formData, setFormData] = useState({
-    id: "",
+    _id: "",
     date: "",
-    timeSlot: "",
-    courseName: "",
-    invigilator: "",
-    hall: ""
+    TimeSlot: "",
+    course: "",
+    Invigilator: "",
+    Hall: ""
   });
 
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -80,26 +119,26 @@ const ExamTable = () => {
     event.preventDefault();
     setExams([...exams, formData]);
     setFormData({
-      id: "",
+      _id: "",
       date: "",
-      timeSlot: "",
-      courseName: "",
-      invigilator: "",
-      hall: ""
+      TimeSlot: "",
+      course: "",
+      Invigilator: "",
+      Hall: ""
     });
   };
 
   // handle deleting an exam
-  const handleDeleteExam = id => {
-    setExams(exams.filter(exam => exam.id !== id));
+  const handleDeleteExam = _id => {
+    setExams(exams.filter(exam => exam._id !== _id));
   };
 
   // handle editing an exam
-  const handleEditExam = (id, updatedExam) => {
-    setExams(
-      exams.map(exam => (exam.id === id ? { ...updatedExam } : exam))
-    );
-  };
+  // const handleEditExam = (_id, updatedExam) => {
+  //   setExams(
+  //     exams.map(exam => (exam._id === _id ? { ...updatedExam } : exam))
+  //   );
+  // };
 
   // set state for editing an exam
   const [editExam, setEditExam] = useState(null);
@@ -111,19 +150,48 @@ const ExamTable = () => {
     handleClickEditOpen();
   };
 
+  const EditinBackend = async()=>{
+    console.log("Recieved request for fetch view schedule")
+      try{
+        const response = await axios.post("http://localhost:5000/edit_exam",{"formdata": formData});
+    
+        if(response.status === 200)
+        {
+            //mostly do nothing
+            alert("Edited exam in the backend")
+        }
+        else if(response.status === 404)
+        {
+          
+        }
+        else{
+          // alert("Cannot Connect with Server")
+          return;
+        }
+    
+        }
+        catch(e)
+        {
+          alert(e)
+        }
+  }
 
   // handle form submission for editing an exam
-  const handleEditFormSubmit = event => {
+  const handleEditFormSubmit = event => 
+  {
     event.preventDefault();
-    handleEditExam(editExam.id, formData);
+    //formData contains all the edited details edit the final details and call the useEffect function here.
+    // handleEditExam(editExam._id, formData);
+    EditinBackend();
+    setfectchBackend(!fetchBackend);
     setEditExam(null);
     setFormData({
-      id: "",
+      _id: "",
       date: "",
-      timeSlot: "",
-      courseName: "",
-      invigilator: "",
-      hall: ""
+      TimeSlot: "",
+      course: "",
+      Invigilator: "",
+      Hall: ""
     });
   };
 
@@ -145,17 +213,18 @@ const ExamTable = () => {
         </thead>
         <tbody>
           {exams.map(exam => (
-            <tr key={exam.id}>
+            <tr key={exam._id}>
               <td>{exam.date}</td>
-              <td>{exam.timeSlot}</td>
-              <td>{exam.courseName}</td>
-              <td>{exam.invigilator}</td>
-              <td>{exam.hall}</td>
+              <td>{exam.TimeSlot}</td>
+              <td>{exam.course}</td>
+              <td>{exam.Invigilator}</td>
+              <td>{exam.Hall}</td>
               <td>
                 <button onClick={() => handleEditButtonClick(exam)}>
-                  Edit
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button onClick={() => handleDeleteExam(exam.id)}>Delete
+                <button onClick={() => handleDeleteExam(exam._id)}>
+                  <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
           </td>
         </tr>
@@ -169,9 +238,9 @@ const ExamTable = () => {
         onClose={handleEditClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        {/* <DialogTitle id="responsive-dialog-title">
           {"Use Google's location service?"}
-        </DialogTitle>
+        </DialogTitle> */}
         <DialogContent>
         <form onSubmit={handleEditFormSubmit} style={{display: "flex", flexDirection: "column"}}>
             <h2>Edit Exam</h2>
@@ -188,8 +257,8 @@ const ExamTable = () => {
             <label>
                 Time Slot:
                 <select
-                name="timeSlot"
-                value={formData.timeSlot}
+                name="TimeSlot"
+                value={formData.TimeSlot}
                 onChange={handleInputChange}
                 >
                 <option value="Forenoon">Forenoon</option>
@@ -201,8 +270,8 @@ const ExamTable = () => {
                 Course Name:
                 <input
                 type="text"
-                name="courseName"
-                value={formData.courseName}
+                name="course"
+                value={formData.course}
                 onChange={handleInputChange}
                 />
             </label>
@@ -210,8 +279,8 @@ const ExamTable = () => {
                 Invigilator:
                 <input
                 type="text"
-                name="invigilator"
-                value={formData.invigilator}
+                name="Invigilator"
+                value={formData.Invigilator}
                 onChange={handleInputChange}
                 />
                 
@@ -220,15 +289,15 @@ const ExamTable = () => {
                 Hall:
                 <input
                 type="text"
-                name="hall"
-                value={formData.hall}
+                name="Hall"
+                value={formData.Hall}
                 onChange={handleInputChange}
                 />
             </label>
             <div>
             <button type="submit" onClick={()=>{handleEditClose();}}>Save</button>
             <button type="button" onClick={() => {setEditExam(null);handleEditClose();}}>
-                Cancel
+              Cancel
             </button>
             </div>
             </form>
@@ -260,8 +329,8 @@ const ExamTable = () => {
             <label>
                 Time Slot:
                 <select
-                name="timeSlot"
-                value={formData.timeSlot}
+                name="TimeSlot"
+                value={formData.TimeSlot}
                 onChange={handleInputChange}
                 >
                 <option value="Forenoon">Forenoon</option>
@@ -273,8 +342,8 @@ const ExamTable = () => {
                 Course Name:
                 <input
                 type="text"
-                name="courseName"
-                value={formData.courseName}
+                name="course"
+                value={formData.course}
                 onChange={handleInputChange}
                 />
             </label>
@@ -282,8 +351,8 @@ const ExamTable = () => {
                 Invigilator:
                 <input
                 type="text"
-                name="invigilator"
-                value={formData.invigilator}
+                name="Invigilator"
+                value={formData.Invigilator}
                 onChange={handleInputChange}
                 />
             </label>
@@ -291,8 +360,8 @@ const ExamTable = () => {
                 Hall:
                 <input
                 type="text"
-                name="hall"
-                value={formData.hall}
+                name="Hall"
+                value={formData.Hall}
                 onChange={handleInputChange}
                 />
             </label>
