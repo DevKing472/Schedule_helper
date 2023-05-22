@@ -2,6 +2,9 @@ import React, { useState,useEffect } from "react";
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContentText from '@mui/material/DialogContentText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import "./Modify_Table.css";
@@ -37,6 +40,10 @@ const ExamTable = () => {
   // ]);
 
   const [fetchBackend,setfectchBackend] = useState(false);
+  
+  const [deleterow,setdeleterow] = useState("");
+
+  const [deletedialog, setdeletedialog] = React.useState(false);
 
   useEffect(() => {
 
@@ -129,8 +136,10 @@ const ExamTable = () => {
   };
 
   // handle deleting an exam
-  const handleDeleteExam = _id => {
-    setExams(exams.filter(exam => exam._id !== _id));
+  const handleDeleteExam = _id => 
+  {
+      handleDeleteOpen(true);
+      setdeleterow(_id);
   };
 
   // handle editing an exam
@@ -150,6 +159,14 @@ const ExamTable = () => {
     handleClickEditOpen();
   };
 
+  const handleDeleteClose = ()=>{
+    setdeletedialog(false);
+  }
+
+  const handleDeleteOpen = ()=>{
+    setdeletedialog(true);
+  }
+
   const EditinBackend = async()=>{
     console.log("Recieved request for fetch view schedule")
       try{
@@ -158,7 +175,7 @@ const ExamTable = () => {
         if(response.status === 200)
         {
             //mostly do nothing
-            alert("Edited exam in the backend")
+            alert("Edited the Exam successfully!")
         }
         else if(response.status === 404)
         {
@@ -174,6 +191,34 @@ const ExamTable = () => {
         {
           alert(e)
         }
+  }
+
+  const DeleteinBackend = async()=>{
+    console.log("Recieved request for delete a exam")
+      try{
+        const response = await axios.post("http://localhost:5000/delete_exam",{"_id": deleterow});
+    
+        if(response.status === 200)
+        {
+            //mostly do nothing
+            alert("Deleted the Exam Succesfully")
+            setfectchBackend(!fetchBackend);
+        }
+        else if(response.status === 404)
+        {
+          
+        }
+        else{
+          // alert("Cannot Connect with Server")
+          return;
+        }
+    
+        }
+        catch(e)
+        {
+          alert(e)
+        }
+      handleDeleteClose();
   }
 
   // handle form submission for editing an exam
@@ -372,7 +417,27 @@ const ExamTable = () => {
         </DialogContent>
       </Dialog>
 
-    {/* <Button onClick={handleClickAddOpen} className="button-32">Add Exam</Button> */}
+      <Dialog
+        open={deletedialog}
+        onClose={handleDeleteClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete this Exam?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Once Deleted this Exam's data will be lost and cannot be recovered later!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteClose}>Cancel</Button>
+          <Button onClick={DeleteinBackend} autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
 
   
 </div>

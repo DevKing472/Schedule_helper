@@ -65,7 +65,7 @@ function AdminDashboard()
               <CardDemo/>
             </div>
             <div style={{ flex: 4 }}>
-              <AdminEditCard />
+              <AdminEditCard handlemodify={handleModify} />
             </div>
           </div>
         )

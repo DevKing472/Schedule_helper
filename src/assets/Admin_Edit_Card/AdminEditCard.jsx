@@ -6,7 +6,11 @@ import Typography from '@mui/material/Typography';
 import "./EditCardBtn.css"
 import { Grid } from '@mui/material';
 
-export default function AdminEditCard() {
+export default function AdminEditCard(props) {
+
+  const handleClick = ()=>{
+    props.handlemodify();
+  }
 
   return (
     <div style={{ marginLeft: '4%', marginTop: '5%' }}>
@@ -22,7 +26,7 @@ export default function AdminEditCard() {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'left' }}>
-        <button class="button-64" role="button"><span class="text">Add/Delete/Edit an Exam</span></button>
+        <button class="button-64" role="button"><span class="text" onClick={handleClick}>Add/Delete/Edit an Exam</span></button>
       </CardActions>
       </Card>
     </div>
