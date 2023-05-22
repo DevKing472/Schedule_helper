@@ -24,8 +24,9 @@ class OTPForm extends React.Component
       if(response.status === 200)
       {
         //proceed to otp component
-        localStorage.setItem("UserEmail",response.email)
-        localStorage.setItem("UserName",response.name)
+        console.log(response)
+        localStorage.setItem("UserEmail",response.data.email)
+        localStorage.setItem("UserName",response.data.name)
         return true;
       }
       else if(response.status === 404)
@@ -290,15 +291,16 @@ class ForgetPassword extends React.Component
       return;
     }
 
-    let boole = await this.forget_backend(email)
+    let boole = await this.forget_backend(email) 
+
 
     if (boole)
     {
       alert("OTP sent")
       this.setState({ forgetError: false });
-      this.props.SharedVariable(1);
+      this.props.updateSharedVariable(1);
       this.props.updateSharedEmail(email)
-      alert(this.props.sharedVariable)
+      // alert(this.props.sharedVariable)
     }
     else 
     {

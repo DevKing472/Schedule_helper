@@ -122,18 +122,18 @@ const ExamTable = () => {
   };
 
   // handle adding a new exam
-  const handleAddExam = event => {
-    event.preventDefault();
-    setExams([...exams, formData]);
-    setFormData({
-      _id: "",
-      date: "",
-      TimeSlot: "",
-      course: "",
-      Invigilator: "",
-      Hall: ""
-    });
-  };
+  // const handleAddExam = event => {
+  //   event.preventDefault();
+  //   setExams([...exams, formData]);
+  //   setFormData({
+  //     _id: "",
+  //     date: "",
+  //     TimeSlot: "",
+  //     course: "",
+  //     Invigilator: "",
+  //     Hall: ""
+  //   });
+  // };
 
   // handle deleting an exam
   const handleDeleteExam = _id => 
@@ -165,6 +165,32 @@ const ExamTable = () => {
 
   const handleDeleteOpen = ()=>{
     setdeletedialog(true);
+  }
+
+  const AddinBackend = async()=>{
+    console.log("Recieved request for adding exam")
+      try{
+        const response = await axios.post("http://localhost:5000/add_exam",{"formdata": formData});
+    
+        if(response.status === 200)
+        {
+            //mostly do nothing
+            alert("Added the Exam successfully!")
+        }
+        else if(response.status === 404)
+        {
+          
+        }
+        else{
+          // alert("Cannot Connect with Server")
+          return;
+        }
+    
+        }
+        catch(e)
+        {
+          alert(e)
+        }
   }
 
   const EditinBackend = async()=>{
@@ -240,6 +266,24 @@ const ExamTable = () => {
     });
   };
 
+  const handleAddFormSubmit = event => 
+  {
+    event.preventDefault();
+    //formData contains all the edited details edit the final details and call the useEffect function here.
+    // handleEditExam(editExam._id, formData);
+    AddinBackend();
+    setfectchBackend(!fetchBackend);
+    setEditExam(null);
+    setFormData({
+      _id: "",
+      date: "",
+      TimeSlot: "",
+      course: "",
+      Invigilator: "",
+      Hall: ""
+    });
+  };
+
   return (
     <div className="main-card">
     <button class="button-32" role="button" onClick={handleClickAddOpen}>Add Exam</button>
@@ -288,57 +332,63 @@ const ExamTable = () => {
         </DialogTitle> */}
         <DialogContent>
         <form onSubmit={handleEditFormSubmit} style={{display: "flex", flexDirection: "column"}}>
-            <h2>Edit Exam</h2>
-            <div>
-            <label>
-                Date:
-                <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Time Slot:
-                <select
-                name="TimeSlot"
-                value={formData.TimeSlot}
-                onChange={handleInputChange}
-                >
-                <option value="Forenoon">Forenoon</option>
-                <option value="Afternoon">Afternoon</option>
-                </select>
-            </label>
-            </div>
-            <label>
-                Course Name:
-                <input
-                type="text"
-                name="course"
-                value={formData.course}
-                onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Invigilator:
-                <input
-                type="text"
-                name="Invigilator"
-                value={formData.Invigilator}
-                onChange={handleInputChange}
-                />
-                
-            </label>
-            <label>
-                Hall:
-                <input
-                type="text"
-                name="Hall"
-                value={formData.Hall}
-                onChange={handleInputChange}
-                />
-            </label>
+          <h1>Edit Exam</h1>
+              <br/>
+              <div>
+              <label style={{marginRight: "25px"}}>
+                  <b>Date: </b>
+                  <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  />
+              </label>
+              <label>
+                  <b>Time Slot: </b>
+                  <select
+                  name="TimeSlot"
+                  value={formData.TimeSlot}
+                  onChange={handleInputChange}
+                  >
+                  <option value="FN">Forenoon</option>
+                  <option value="AN">Afternoon</option>
+                  </select>
+              </label>
+              </div>
+              <br/>
+              <label>
+                  <b>Course Name: </b>
+                  <input
+                  type="text"
+                  name="course"
+                  value={formData.course}
+                  onChange={handleInputChange}
+                  style={{width: "350px"}}
+                  />
+              </label>
+              <br/>
+              <label>
+                  <b>Invigilator: </b>
+                  <input
+                  type="text"
+                  name="Invigilator"
+                  value={formData.Invigilator}
+                  onChange={handleInputChange}
+                  style={{width: "350px"}}
+                  />
+              </label>
+              <br/>
+              <label>
+                  <b>Hall: </b>
+                  <input
+                  type="text"
+                  name="Hall"
+                  value={formData.Hall}
+                  onChange={handleInputChange}
+                  style={{width: "360px"}}
+                  />
+              </label>
             <div>
             <button type="submit" onClick={()=>{handleEditClose();}}>Save</button>
             <button type="button" onClick={() => {setEditExam(null);handleEditClose();}}>
@@ -355,15 +405,13 @@ const ExamTable = () => {
         onClose={handleAddClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
         <DialogContent>
-        <form onSubmit={handleAddExam} style={{display: "flex", flexDirection: "column"}}>
-            <h2>Add Exam</h2>
+        <form onSubmit={handleAddFormSubmit} style={{display: "flex", flexDirection: "column"}}>
+            <h1>Add Exam</h1>
+            <br/>
             <div>
-            <label>
-                Date:
+            <label style={{marginRight: "25px"}}>
+                <b>Date: </b>
                 <input
                 type="date"
                 name="date"
@@ -372,46 +420,53 @@ const ExamTable = () => {
                 />
             </label>
             <label>
-                Time Slot:
+                <b>Time Slot: </b>
                 <select
                 name="TimeSlot"
                 value={formData.TimeSlot}
                 onChange={handleInputChange}
                 >
-                <option value="Forenoon">Forenoon</option>
-                <option value="Afternoon">Afternoon</option>
+                <option value="FN">Forenoon</option>
+                <option value="AN">Afternoon</option>
                 </select>
             </label>
             </div>
+            <br/>
             <label>
-                Course Name:
+                <b>Course Name: </b>
                 <input
                 type="text"
                 name="course"
                 value={formData.course}
                 onChange={handleInputChange}
+                style={{width: "350px"}}
                 />
             </label>
+            <br/>
             <label>
-                Invigilator:
+                <b>Invigilator: </b>
                 <input
                 type="text"
                 name="Invigilator"
                 value={formData.Invigilator}
                 onChange={handleInputChange}
+                style={{width: "350px"}}
                 />
             </label>
+            <br/>
             <label>
-                Hall:
+                <b>Hall: </b>
                 <input
                 type="text"
                 name="Hall"
                 value={formData.Hall}
                 onChange={handleInputChange}
+                style={{width: "360px"}}
                 />
             </label>
             <div>
             <button type="submit" onClick={()=>{handleAddClose()}}>Add</button>
+            <button type="button" onClick={()=>{handleAddClose()}}>Cancel</button>
             </div>
             </form>
         </DialogContent>

@@ -15,7 +15,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ExamScheduleTable from './View_Schedule/View_Schedule';
-import FacultyScheduleTable from './View_Faculty_Sched/View_Faculty_Sched';
 import Admin_Edit_Profile from "./Admin_Edit_Profile/Admin_Edit_Profile"
 import AdminEditCard from "./assets/Admin_Edit_Card/AdminEditCard"
 import ExamTable from './Modify_Table/Modify_Table';
