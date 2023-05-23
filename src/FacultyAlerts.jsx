@@ -8,7 +8,8 @@ import { Grid } from '@mui/material';
 import axios from 'axios';  
  
   const Table = ({ data }) => (
-    <table style={{ width: '100%', borderCollapse: 'collapse',marginTop:"10px" }}>
+    <div style={{ height: '350px', overflowY: 'auto', marginTop: '10px' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse',marginTop:"10px"}}>
       <thead>
         <tr style={{ backgroundColor: '#A82121', color: '#FFF' }}>
           <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center', width: '25%' }}>Date</th>
@@ -24,6 +25,7 @@ import axios from 'axios';
         ))}
       </tbody>
     </table>
+    </div>
   );
 
   Table.propTypes = {

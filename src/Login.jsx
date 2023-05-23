@@ -162,11 +162,11 @@ class LoginForm extends React.Component
 
     const backend_resp = await this.backendauth(email,password)
 
-    if(backend_resp.isLoggedin && backend_resp.userType == "Faculty")
+    if(backend_resp.isLoggedin && backend_resp.userType === "Faculty")
     {
       window.location.replace('/facultydashboard');
     }
-    else if(backend_resp.isLoggedin && backend_resp.userType == "Admin")
+    else if(backend_resp.isLoggedin && backend_resp.userType === "Admin")
     {
       window.location.replace("admindashboard")
     }
@@ -382,10 +382,10 @@ class Login extends React.Component {
 
         <LoginForm sharedVariable={this.state.forget_counter} sharedEmail={this.state.sharedEmail} updateSharedVariable={this.updateSharedVariable}/>
 
-        {this.state.forget_counter == 0 && (
+        {this.state.forget_counter === 0 && (
          <ForgetPassword sharedVariable={this.state.forget_counter} sharedEmail={this.state.sharedEmail} updateSharedEmail={this.updateSharedEmail} updateSharedVariable={this.updateSharedVariable}/>
         )}
-        {this.state.forget_counter == 1 && (
+        {this.state.forget_counter === 1 && (
           <OTPForm sharedVariable={this.state.forget_counter} sharedEmail={this.state.sharedEmail} updateSharedEmail={this.updateSharedEmail} updateSharedVariable={this.updateSharedVariable}/>
 
           // <LoginForm sharedVariable={this.state.forget_counter} updateSharedVariable={this.updateSharedVariable}/>

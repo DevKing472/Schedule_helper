@@ -16,7 +16,7 @@ const Admin_Edit_Profile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailNotifications, setEmailNotifications] = useState(ProfileData.email_sub);
-  const [updatedValues, setUpdatedValues] = useState(null);
+  // const [updatedValues, setUpdatedValues] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const Admin_Edit_Profile = () => {
       confirmPassword,
       emailNotifications,
     };
-    setUpdatedValues(modifiedValues);
+    // setUpdatedValues(modifiedValues);
     setFirstName(modifiedValues.firstName);
     setLastName(modifiedValues.lastName);
     setEmail(modifiedValues.email);

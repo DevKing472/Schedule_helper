@@ -36,6 +36,8 @@
     text-overflow: ellipsis; /* Optional: Show ellipsis (...) for overflowing content within table cells */
     text-align: center;
   }
+
+  
   
   .exam-schedule table tr:nth-child(even) {
     background-color: #f2f2f2;

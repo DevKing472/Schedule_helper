@@ -150,11 +150,11 @@ const ExamTable = () => {
   // };
 
   // set state for editing an exam
-  const [editExam, setEditExam] = useState(null);
+  // const [editExam, setEditExam] = useState(null);
 
   // handle edit button click
   const handleEditButtonClick = exam => {
-    setEditExam(exam);
+    // setEditExam(exam);
     setFormData(exam);
     handleClickEditOpen();
   };
@@ -255,7 +255,7 @@ const ExamTable = () => {
     // handleEditExam(editExam._id, formData);
     EditinBackend();
     setfectchBackend(!fetchBackend);
-    setEditExam(null);
+    // setEditExam(null);
     setFormData({
       _id: "",
       date: "",
@@ -273,7 +273,7 @@ const ExamTable = () => {
     // handleEditExam(editExam._id, formData);
     AddinBackend();
     setfectchBackend(!fetchBackend);
-    setEditExam(null);
+    // setEditExam(null);
     setFormData({
       _id: "",
       date: "",
@@ -391,7 +391,7 @@ const ExamTable = () => {
               </label>
             <div>
             <button type="submit" onClick={()=>{handleEditClose();}}>Save</button>
-            <button type="button" onClick={() => {setEditExam(null);handleEditClose();}}>
+            <button type="button" onClick={() => {handleEditClose();}}>
               Cancel
             </button>
             </div>

@@ -16,7 +16,7 @@ import * as Yup from "yup";
 
 const FacultyScheduleTable = () => {
   const [ scheduleData, setScheduleData ] = useState( [] );
-  const [ modalShow, setModalShow ] = React.useState( false );
+  // const [ modalShow, setModalShow ] = React.useState( false );
 
   const username = localStorage.getItem("UserName")
 
