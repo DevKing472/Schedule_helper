@@ -55,90 +55,90 @@ const FacultyScheduleTable = () => {
       fetchAlerts();
     }, []);
 
-  function MyVerticallyCenteredModal ( props ) {
-    const ExamSchema = Yup.object().shape( {
-      date: Yup.date().required( "Required" ),
-      TimeSlot: Yup.string().required( "Required" ),
-      course: Yup.string().required( "Required" ),
-      Invigilator: Yup.string().required( "Required" ),
-      Hall: Yup.string().required( "Required" ),
-    } );
-    const [ exams, setExams ] = useState( [] );
+  // function MyVerticallyCenteredModal ( props ) {
+  //   const ExamSchema = Yup.object().shape( {
+  //     date: Yup.date().required( "Required" ),
+  //     TimeSlot: Yup.string().required( "Required" ),
+  //     course: Yup.string().required( "Required" ),
+  //     Invigilator: Yup.string().required( "Required" ),
+  //     Hall: Yup.string().required( "Required" ),
+  //   } );
+  //   const [ exams, setExams ] = useState( [] );
 
-    const initialValues = {
-      date: "",
-      TimeSlot: "",
-      course: "",
-      Invigilator: "",
-      Hall: "",
-    };
+  //   const initialValues = {
+  //     date: "",
+  //     TimeSlot: "",
+  //     course: "",
+  //     Invigilator: "",
+  //     Hall: "",
+  //   };
 
-    const handleSubmit = ( values, { resetForm } ) => {
-      const newExam = {
-        date: values.date,
-        TimeSlot: values.TimeSlot,
-        course: values.course,
-        Invigilator: values.Invigilator,
-        Hall: values.Hall,
-      };
-      setExams( [ ...exams, newExam ] );
-      resetForm();
-    };
+  //   const handleSubmit = ( values, { resetForm } ) => {
+  //     const newExam = {
+  //       date: values.date,
+  //       TimeSlot: values.TimeSlot,
+  //       course: values.course,
+  //       Invigilator: values.Invigilator,
+  //       Hall: values.Hall,
+  //     };
+  //     setExams( [ ...exams, newExam ] );
+  //     resetForm();
+  //   };
 
-    return (
-      <Modal
-        { ...props }
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Form >
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-              Add Exam
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+  //   return (
+  //     <Modal
+  //       { ...props }
+  //       size="lg"
+  //       aria-labelledby="contained-modal-title-vcenter"
+  //       centered
+  //     >
+  //       <Form >
+  //         <Modal.Header closeButton>
+  //           <Modal.Title id="contained-modal-title-vcenter">
+  //             Add Exam
+  //           </Modal.Title>
+  //         </Modal.Header>
+  //         <Modal.Body>
 
-            <Form.Group className="mb-3" controlId="exam-name">
-              <Form.Label>Exam Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter exam name" required />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exam-date">
-              <Form.Label>Exam Date</Form.Label>
-              <Form.Control type="date" required />
-            </Form.Group>
+  //           <Form.Group className="mb-3" controlId="exam-name">
+  //             <Form.Label>Exam Name</Form.Label>
+  //             <Form.Control type="text" placeholder="Enter exam name" required />
+  //           </Form.Group>
+  //           <Form.Group className="mb-3" controlId="exam-date">
+  //             <Form.Label>Exam Date</Form.Label>
+  //             <Form.Control type="date" required />
+  //           </Form.Group>
 
-            <Form.Group className="mb-3" controlId="exam-time">
-              <Form.Label>Exam Time</Form.Label>
-              <Dropdown>
-                <Dropdown.Toggle variant="secondary" id="dropdown-exam-time">
-                  Select Time
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item eventKey="forenoon">Forenoon</Dropdown.Item>
-                  <Dropdown.Item eventKey="afternoon">Afternoon</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exam-duration">
-              <Form.Label>Invigilator</Form.Label>
-              <Form.Control type="text" required />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exam-duration">
-              <Form.Label>Hall Number</Form.Label>
-              <Form.Control type="text" required />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" type="submit">Add Exam</Button>
-            <Button onClick={ props.onHide }>Close</Button>
-          </Modal.Footer>
-        </Form>
+  //           <Form.Group className="mb-3" controlId="exam-time">
+  //             <Form.Label>Exam Time</Form.Label>
+  //             <Dropdown>
+  //               <Dropdown.Toggle variant="secondary" id="dropdown-exam-time">
+  //                 Select Time
+  //               </Dropdown.Toggle>
+  //               <Dropdown.Menu>
+  //                 <Dropdown.Item eventKey="forenoon">Forenoon</Dropdown.Item>
+  //                 <Dropdown.Item eventKey="afternoon">Afternoon</Dropdown.Item>
+  //               </Dropdown.Menu>
+  //             </Dropdown>
+  //           </Form.Group>
+  //           <Form.Group className="mb-3" controlId="exam-duration">
+  //             <Form.Label>Invigilator</Form.Label>
+  //             <Form.Control type="text" required />
+  //           </Form.Group>
+  //           <Form.Group className="mb-3" controlId="exam-duration">
+  //             <Form.Label>Hall Number</Form.Label>
+  //             <Form.Control type="text" required />
+  //           </Form.Group>
+  //         </Modal.Body>
+  //         <Modal.Footer>
+  //           <Button variant="primary" type="submit">Add Exam</Button>
+  //           <Button onClick={ props.onHide }>Close</Button>
+  //         </Modal.Footer>
+  //       </Form>
 
-      </Modal>
-    );
-  }
+  //     </Modal>
+  //   );
+  // }
 
   // create function to sort the data based on date
   const sortDataDate = () => {

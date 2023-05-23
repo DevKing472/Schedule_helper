@@ -45,6 +45,12 @@ const ExamTable = () => {
 
   const [deletedialog, setdeletedialog] = React.useState(false);
 
+  const [availablefaculty,setavailablefaculty] = React.useState([]);
+
+  const [availablehall,setavailablehall] = React.useState([]);
+
+
+
   useEffect(() => {
 
     async function fetchAlerts()
@@ -95,6 +101,8 @@ const ExamTable = () => {
   });
 
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [openEditSecond, setOpenEditSecond] = React.useState(false);
+
   const [openAdd, setOpenAdd] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -105,6 +113,14 @@ const ExamTable = () => {
 
   const handleEditClose = () => {
     setOpenEdit(false);
+  };
+
+  const handleClickEditSecondOpen = () => {
+    setOpenEditSecond(true);
+  };
+
+  const handleEditSecondClose = () => {
+    setOpenEditSecond(false);
   };
 
   const handleClickAddOpen = () => {
@@ -247,6 +263,39 @@ const ExamTable = () => {
       handleDeleteClose();
   }
 
+  const getAvailableData = async()=>{
+    console.log("Recieved request for fetch avaiable options")
+      try{
+        const response = await axios.post("http://localhost:5000/fetch_available",{"date": formData.date,"TimeSlot": formData.TimeSlot});
+    
+        if(response.status === 200)
+        {
+            let facultyarr = response.data.Invigilators;
+            let hallarr = response.data.Halls;
+
+            console.log(facultyarr)
+
+            console.log(hallarr)
+
+            setavailablefaculty(facultyarr);
+            setavailablehall(hallarr);
+        }
+        else if(response.status === 404)
+        {
+          
+        }
+        else{
+          // alert("Cannot Connect with Server")
+          return;
+        }
+    
+        }
+        catch(e)
+        {
+          alert(e)
+        }
+  }
+
   // handle form submission for editing an exam
   const handleEditFormSubmit = event => 
   {
@@ -265,6 +314,14 @@ const ExamTable = () => {
       Hall: ""
     });
   };
+
+  const handleEditDateSubmit = event =>{
+      //connect to backend to get options then call to open the other dialog
+      event.preventDefault();
+      getAvailableData();
+      handleClickEditSecondOpen();
+
+  }
 
   const handleAddFormSubmit = event => 
   {
@@ -331,31 +388,67 @@ const ExamTable = () => {
           {"Use Google's location service?"}
         </DialogTitle> */}
         <DialogContent>
-        <form onSubmit={handleEditFormSubmit} style={{display: "flex", flexDirection: "column"}}>
+        <form onSubmit={handleEditDateSubmit} style={{display: "flex", flexDirection: "column"}}>
           <h1>Edit Exam</h1>
               <br/>
               <div>
-              <label style={{marginRight: "25px"}}>
+              <label style={{marginRight: "25px",fontSize: "20px"}}>
                   <b>Date: </b>
                   <input
                   type="date"
                   name="date"
                   value={formData.date}
                   onChange={handleInputChange}
+                  style={{
+                    width: '300px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px',
+                  }}
                   />
               </label>
-              <label>
-                  <b>Time Slot: </b>
+              <br/>
+              <br/>
+              <label style={{marginRight: "25px",fontSize: "20px"}}>
+                  <b>Time: </b>
                   <select
                   name="TimeSlot"
                   value={formData.TimeSlot}
                   onChange={handleInputChange}
+                  style={{
+                    width: '300px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px',
+                  }}
                   >
                   <option value="FN">Forenoon</option>
                   <option value="AN">Afternoon</option>
                   </select>
               </label>
               </div>
+              <br/>
+            <div>
+            <button type="submit" onClick={()=>{handleEditClose();}}>Next</button>
+            <button type="button" onClick={() => {handleEditClose();}}>Cancel</button>
+            </div>
+            </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={openEditSecond}
+        onClose={handleEditSecondClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        {/* <DialogTitle id="responsive-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle> */}
+        <DialogContent>
+        <form onSubmit={handleEditFormSubmit} style={{display: "flex", flexDirection: "column"}}> {/*onSubmit={handleEditFormSubmit} */}
+          <h1>Edit Exam</h1>
+              <br/>
               <br/>
               <label>
                   <b>Course Name: </b>
@@ -365,35 +458,60 @@ const ExamTable = () => {
                   value={formData.course}
                   onChange={handleInputChange}
                   style={{width: "350px"}}
-                  />
+                  /> 
+
               </label>
               <br/>
               <label>
                   <b>Invigilator: </b>
-                  <input
-                  type="text"
+                  <select
                   name="Invigilator"
                   value={formData.Invigilator}
                   onChange={handleInputChange}
-                  style={{width: "350px"}}
-                  />
+                  style={{
+                    width: '350px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px'
+                  }}
+                  >
+                    <option value={formData.Invigilator}>{formData.Invigilator}</option>
+                  {availablefaculty.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                  </select>
+                  
               </label>
               <br/>
               <label>
-                  <b>Hall: </b>
-                  <input
-                  type="text"
+                  <b>Hall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+                  
+                  <select
                   name="Hall"
                   value={formData.Hall}
                   onChange={handleInputChange}
-                  style={{width: "360px"}}
-                  />
+                  style={{
+                    width: '350px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px'
+                  }}
+                  >
+                  {availablehall.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                  </select>
+                  
               </label>
+              <br/>
+              <br/>
             <div>
-            <button type="submit" onClick={()=>{handleEditClose();}}>Save</button>
-            <button type="button" onClick={() => {handleEditClose();}}>
-              Cancel
-            </button>
+            <button type="submit" onClick={()=>{handleEditSecondClose();}}>Next</button>
+            <button type="button" onClick={() => {handleEditSecondClose();}}>Cancel</button>
             </div>
             </form>
         </DialogContent>
