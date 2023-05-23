@@ -104,6 +104,8 @@ const ExamTable = () => {
   const [openEditSecond, setOpenEditSecond] = React.useState(false);
 
   const [openAdd, setOpenAdd] = React.useState(false);
+  const [openAddSecond,setOpenAddSecond] = React.useState(false);
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -121,6 +123,14 @@ const ExamTable = () => {
 
   const handleEditSecondClose = () => {
     setOpenEditSecond(false);
+  };
+
+  const handleClickAddSecondOpen = () => {
+    setOpenAddSecond(true);
+  };
+
+  const handleAddSecondClose = () => {
+    setOpenAddSecond(false);
   };
 
   const handleClickAddOpen = () => {
@@ -323,6 +333,12 @@ const ExamTable = () => {
 
   }
 
+  const handleAddDateSubmit = event =>{
+      event.preventDefault();
+      getAvailableData();
+      handleClickAddSecondOpen();
+  }
+
   const handleAddFormSubmit = event => 
   {
     event.preventDefault();
@@ -384,9 +400,6 @@ const ExamTable = () => {
         onClose={handleEditClose}
         aria-labelledby="responsive-dialog-title"
       >
-        {/* <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle> */}
         <DialogContent>
         <form onSubmit={handleEditDateSubmit} style={{display: "flex", flexDirection: "column"}}>
           <h1>Edit Exam</h1>
@@ -442,9 +455,6 @@ const ExamTable = () => {
         onClose={handleEditSecondClose}
         aria-labelledby="responsive-dialog-title"
       >
-        {/* <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle> */}
         <DialogContent>
         <form onSubmit={handleEditFormSubmit} style={{display: "flex", flexDirection: "column"}}> {/*onSubmit={handleEditFormSubmit} */}
           <h1>Edit Exam</h1>
@@ -475,19 +485,17 @@ const ExamTable = () => {
                     padding: '5px'
                   }}
                   >
-                    <option value={formData.Invigilator}>{formData.Invigilator}</option>
+                    {/* <option value={formData.Invigilator}>{formData.Invigilator}</option> */}
                   {availablefaculty.map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
                   ))}
                   </select>
-                  
               </label>
               <br/>
               <label>
                   <b>Hall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-                  
                   <select
                   name="Hall"
                   value={formData.Hall}
@@ -499,6 +507,7 @@ const ExamTable = () => {
                     padding: '5px'
                   }}
                   >
+                  {/* <option value={formData.Hall}>{formData.Hall}</option> */}
                   {availablehall.map((option, index) => (
                     <option key={index} value={option}>
                       {option}
@@ -510,7 +519,7 @@ const ExamTable = () => {
               <br/>
               <br/>
             <div>
-            <button type="submit" onClick={()=>{handleEditSecondClose();}}>Next</button>
+            <button type="submit" onClick={()=>{handleEditSecondClose();}}>Edit</button>
             <button type="button" onClick={() => {handleEditSecondClose();}}>Cancel</button>
             </div>
             </form>
@@ -518,6 +527,140 @@ const ExamTable = () => {
       </Dialog>
 
       <Dialog
+        fullScreen={fullScreen}
+        open={openAdd}
+        onClose={handleAddClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogContent>
+        <form onSubmit={handleAddDateSubmit} style={{display: "flex", flexDirection: "column"}}>
+          <h1>Add Exam</h1>
+              <br/>
+              <div>
+              <label style={{marginRight: "25px",fontSize: "20px"}}>
+                  <b>Date: </b>
+                  <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  style={{
+                    width: '300px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px',
+                  }}
+                  />
+              </label>
+              <br/>
+              <br/>
+              <label style={{marginRight: "25px",fontSize: "20px"}}>
+                  <b>Time: </b>
+                  <select
+                  name="TimeSlot"
+                  value={formData.TimeSlot}
+                  onChange={handleInputChange}
+                  style={{
+                    width: '300px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px',
+                  }}
+                  >
+                  <option value="">--Select--</option>
+                  <option value="FN">Forenoon</option>
+                  <option value="AN">Afternoon</option>
+                  </select>
+              </label>
+              </div>
+              <br/>
+            <div>
+            <button type="submit" onClick={()=>{handleAddClose();}}>Next</button>
+            <button type="button" onClick={() => {handleAddClose();}}>Cancel</button>
+            </div>
+            </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={openAddSecond}
+        onClose={handleAddSecondClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogContent>
+        <form onSubmit={handleAddFormSubmit} style={{display: "flex", flexDirection: "column"}}> {/*onSubmit={handleEditFormSubmit} */}
+          <h1>Add Exam</h1>
+              <br/>
+              <br/>
+              <label>
+                  <b>Course Name: </b>
+                  <input
+                  type="text"
+                  name="course"
+                  value={formData.course}
+                  onChange={handleInputChange}
+                  style={{width: "350px"}}
+                  /> 
+
+              </label>
+              <br/>
+              <label>
+                  <b>Invigilator: </b>
+                  <select
+                  name="Invigilator"
+                  value={formData.Invigilator}
+                  onChange={handleInputChange}
+                  style={{
+                    width: '350px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px'
+                  }}
+                  >
+                  <option value="">--Select--</option>
+                  {availablefaculty.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                  </select>
+              </label>
+              <br/>
+              <label>
+                  <b>Hall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+                  <select
+                  name="Hall"
+                  value={formData.Hall}
+                  onChange={handleInputChange}
+                  style={{
+                    width: '350px',
+                    height: '40px',
+                    fontSize: '18px',
+                    padding: '5px'
+                  }}
+                  >
+                    <option value="">--Select--</option>
+                  {availablehall.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                  </select>
+                  
+              </label>
+              <br/>
+              <br/>
+            <div>
+            <button type="submit" onClick={()=>{handleAddSecondClose();}}>Add</button>
+            <button type="button" onClick={() => {handleAddSecondClose();}}>Cancel</button>
+            </div>
+            </form>
+        </DialogContent>
+      </Dialog>
+
+
+      {/* <Dialog
         fullScreen={fullScreen}
         open={openAdd}
         onClose={handleAddClose}
@@ -588,7 +731,7 @@ const ExamTable = () => {
             </div>
             </form>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
 
       <Dialog
         open={deletedialog}

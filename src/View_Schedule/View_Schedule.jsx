@@ -5,14 +5,14 @@ import './View_Schedule.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Dropdown } from 'react-bootstrap';
+// import Modal from 'react-bootstrap/Modal';
+// import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form';
+// import { Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 
 // import { Formik, Field, Form as FormikForm, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 const ExamScheduleTable = () => {
   const [ scheduleData, setScheduleData ] = useState( [] );
@@ -61,27 +61,27 @@ const ExamScheduleTable = () => {
   //     Invigilator: Yup.string().required( "Required" ),
   //     Hall: Yup.string().required( "Required" ),
   //   } );
-  //   const [ exams, setExams ] = useState( [] );
+  //   // const [ exams, setExams ] = useState( [] );
 
-  //   const initialValues = {
-  //     date: "",
-  //     TimeSlot: "",
-  //     course: "",
-  //     Invigilator: "",
-  //     Hall: "",
-  //   };
+  //   // const initialValues = {
+  //   //   date: "",
+  //   //   TimeSlot: "",
+  //   //   course: "",
+  //   //   Invigilator: "",
+  //   //   Hall: "",
+  //   // };
 
-  //   const handleSubmit = ( values, { resetForm } ) => {
-  //     const newExam = {
-  //       date: values.date,
-  //       TimeSlot: values.TimeSlot,
-  //       course: values.course,
-  //       Invigilator: values.Invigilator,
-  //       Hall: values.Hall,
-  //     };
-  //     setExams( [ ...exams, newExam ] );
-  //     resetForm();
-  //   };
+  //   // const handleSubmit = ( values, { resetForm } ) => {
+  //   //   const newExam = {
+  //   //     date: values.date,
+  //   //     TimeSlot: values.TimeSlot,
+  //   //     course: values.course,
+  //   //     Invigilator: values.Invigilator,
+  //   //     Hall: values.Hall,
+  //   //   };
+  //   //   setExams( [ ...exams, newExam ] );
+  //   //   resetForm();
+  //   // };
 
   //   return (
   //     <Modal
@@ -149,7 +149,7 @@ const ExamScheduleTable = () => {
       }
       return 0;
     } );
-    setScheduleData( [ ...sortedData ] );
+    setScheduleData( [...sortedData] );
   };
 
   // create function to sort the data based on time
@@ -212,7 +212,7 @@ const ExamScheduleTable = () => {
     <div className='schedule-container'>
 
       <div className='exam-schedule'>
-        <table className='table table-striped'>
+        <table className='table table-striped' style={{height: "50px",overflowY: "auto"}}>
           <thead>
             <tr>
               <th>
@@ -249,7 +249,7 @@ const ExamScheduleTable = () => {
           </thead>
           <tbody>
             { scheduleData.map( schedule => (
-              <tr key={ schedule.date }>
+              <tr key={ schedule._id }>
                 <td>{ schedule.date }</td>
                 <td>{ schedule.TimeSlot }</td>
                 <td>{ schedule.course }</td>
@@ -261,14 +261,6 @@ const ExamScheduleTable = () => {
         </table>
       </div>
 
-      {/* <Button variant="primary" onClick={ () => setModalShow( true ) }>
-        Add Exam
-      </Button>
-
-      <MyVerticallyCenteredModal
-        show={ modalShow }
-        onHide={ () => setModalShow( false ) }
-      /> */}
     </div>
 
   );
