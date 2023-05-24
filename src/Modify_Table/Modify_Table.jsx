@@ -276,7 +276,7 @@ const ExamTable = () => {
   const getAvailableData = async()=>{
     console.log("Recieved request for fetch avaiable options")
       try{
-        const response = await axios.post("http://localhost:5000/fetch_available",{"date": formData.date,"TimeSlot": formData.TimeSlot});
+        const response = await axios.post("http://localhost:5000/fetch_available",{"date": formData.date,"TimeSlot": formData.TimeSlot,"_id": formData._id});
     
         if(response.status === 200)
         {
