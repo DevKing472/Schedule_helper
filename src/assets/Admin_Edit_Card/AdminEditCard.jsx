@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import "./EditCardBtn.css"
-import { Grid } from '@mui/material';
+// import { Grid } from '@mui/material';
 
 export default function AdminEditCard(props) {
 
@@ -26,7 +26,7 @@ export default function AdminEditCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'left' }}>
-        <button class="button-64" role="button"><span class="text" onClick={handleClick}>Add/Delete/Edit an Exam</span></button>
+        <button class="button-64" ><span class="text" onClick={handleClick}>Add/Delete/Edit an Exam</span></button>
       </CardActions>
       </Card>
     </div>

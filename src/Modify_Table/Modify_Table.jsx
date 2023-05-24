@@ -359,7 +359,7 @@ const ExamTable = () => {
 
   return (
     <div className="main-card">
-    <button class="button-32" role="button" onClick={handleClickAddOpen}>Add Exam</button>
+    <button class="button-32" onClick={handleClickAddOpen}>Add Exam</button>
     <br/>
     <br/>
       <table className="ModifyTable">

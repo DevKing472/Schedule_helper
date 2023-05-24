@@ -18,8 +18,8 @@ const Faculty_Edit_Profile = () => {
   const [designation, setDesignation] = useState(ProfileData.designation);
   const [department, setDepartment] = useState(ProfileData.department);
   const [emailNotifications, setEmailNotifications] = useState(ProfileData.email_sub);
-  const [updatedValues, setUpdatedValues] = useState(null);
-  const [isUpdated, setIsUpdated] = useState(false);
+  // const [updatedValues, setUpdatedValues] = useState(null);
+  // const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
 
@@ -105,14 +105,14 @@ const Faculty_Edit_Profile = () => {
 
   const validateForm = ()=>
   {
-    if(phone.length != 10)
+    if(phone.length !== 10)
     {
         alert("Fill 10 digits in Phone Number")
         return false
     }
-    else if(newPassword.length != 0 && confirmPassword.length != 0)
+    else if(newPassword.length !== 0 && confirmPassword.length !== 0)
     {
-        if(newPassword != confirmPassword)
+        if(newPassword !== confirmPassword)
         {
             alert("Make sure that Passwordis same in both fields")
             return false 
@@ -179,7 +179,7 @@ const Faculty_Edit_Profile = () => {
       department,
       emailNotifications,
     };
-    setUpdatedValues(modifiedValues);
+    // setUpdatedValues(modifiedValues);
     setFirstName(modifiedValues.firstName);
     setLastName(modifiedValues.lastName);
     setEmail(modifiedValues.email);
@@ -189,7 +189,7 @@ const Faculty_Edit_Profile = () => {
     setDesignation(modifiedValues.designation);
     setDepartment(modifiedValues.department);
     setEmailNotifications(modifiedValues.emailNotifications);
-    setIsUpdated(true); 
+    // setIsUpdated(true); 
 
     if(!validateForm())
     {
@@ -206,7 +206,7 @@ const Faculty_Edit_Profile = () => {
     <div className="formbold-main-wrapper">
       <div className="formbold-form-wrapper">
         <div className="formbold-profile-photo">
-        <img src="https://t4.ftcdn.net/jpg/01/18/03/35/360_F_118033506_uMrhnrjBWBxVE9sYGTgBht8S5liVnIeY.jpg" alt="Profile Photo" class="formbold-profile-img" />
+        <img src="https://t4.ftcdn.net/jpg/01/18/03/35/360_F_118033506_uMrhnrjBWBxVE9sYGTgBht8S5liVnIeY.jpg" alt="" class="formbold-profile-img" />
       </div>
       <h2>My Profile</h2>
       <br />

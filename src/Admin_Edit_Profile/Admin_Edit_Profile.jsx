@@ -17,7 +17,7 @@ const Admin_Edit_Profile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailNotifications, setEmailNotifications] = useState(ProfileData.email_sub);
   // const [updatedValues, setUpdatedValues] = useState(null);
-  const [isUpdated, setIsUpdated] = useState(false);
+  // const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
 
@@ -93,14 +93,14 @@ const Admin_Edit_Profile = () => {
 
   const validateForm = ()=>
   {
-    if(phone.length != 10)
+    if(phone.length !== 10)
     {
         alert("Fill 10 digits in Phone Number")
         return false
     }
-    else if(newPassword.length != 0 && confirmPassword.length != 0)
+    else if(newPassword.length !== 0 && confirmPassword.length !== 0)
     {
-        if(newPassword != confirmPassword)
+        if(newPassword !== confirmPassword)
         {
             alert("Make sure that Passwordis same in both fields")
             return false 
@@ -173,7 +173,7 @@ const Admin_Edit_Profile = () => {
     // setDesignation(modifiedValues.designation);
     // setDepartment(modifiedValues.department);
     setEmailNotifications(modifiedValues.emailNotifications);
-    setIsUpdated(true); 
+    // setIsUpdated(true); 
 
     if(!validateForm())
     {
