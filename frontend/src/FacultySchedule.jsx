@@ -16,24 +16,26 @@ const alertData = [
 alertData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort the array by date in descending order
 
 const Table = ({ data }) => (
-  <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: "10px" }}>
-    <thead>
-      <tr style={{ backgroundColor: '#A82121', color: '#FFF' }}>
-        <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center', width: '25%' }}>Date</th>
-        <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Course Name</th>
-        <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Hall Allotted</th>
-      </tr>
-    </thead>
-    <tbody>
-      {data.map((alert, index) => (
-        <tr key={index}>
-          <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center', width: '25%' }}>{alert.date}</td>
-          <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.course}</td>
-          <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.Hall}</td>
+  <div style={{ height: '350px', overflowY: 'auto', marginTop: '10px' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: "10px" }}>
+      <thead>
+        <tr style={{ backgroundColor: '#A82121', color: '#FFF' }}>
+          <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center', width: '25%' }}>Date</th>
+          <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Course Name</th>
+          <th style={{ padding: '10px', border: '1px solid #FFF', textAlign: 'center' }}>Hall Allotted</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {data.map((alert, index) => (
+          <tr key={index}>
+            <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center', width: '25%' }}>{alert.date}</td>
+            <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.course}</td>
+            <td style={{ padding: '10px', border: '1px solid #CCC', textAlign: 'center' }}>{alert.Hall}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 );
 
 Table.propTypes = {
@@ -93,7 +95,7 @@ export default function FacultySchedule() {
 
   return (
     <div style={{ marginLeft: '4%', marginTop: '5%' }}>
-      <Card sx={{ maxWidth: '95%', boxShadow: '0 4px 8px #A82121' }} variant='outlined'>
+      <Card sx={{ maxWidth: '95%', boxShadow: '0 4px 8px #A82121',height: "325px"}} variant='outlined'>
         <CardContent>
           <Typography variant='h4' gutterBottom>
             Your Upcoming Schedule
@@ -102,7 +104,12 @@ export default function FacultySchedule() {
           <hr style={{ color: '#A82121' }} />
           <Grid container spacing={2} direction="column">
             <Grid item xs={12}>
+              { scheduleData.length != 0 &&
               <Table data={scheduleData} />
+              }
+              { scheduleData.length == 0 &&
+              <div style={{textAlign:"center",marginTop: "10px",fontSize:"20px"}}>You Have No Upcoming Schedule</div>
+              }
             </Grid>
           </Grid>
         </CardContent>

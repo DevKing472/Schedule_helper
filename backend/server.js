@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const uri = "mongodb+srv://pradeep:prad2003@backgroundcluster.pzm6kzq.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://pradeep:eahuser@backgroundcluster.pzm6kzq.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri);
 
@@ -259,7 +259,7 @@ app.post("/fetch_faculty_sched",async (req,res) =>
         res.status(200).send({"schedulerecords": result})
     }
     else{
-        res.status(404).send()
+        res.status(200).send({"schedulerecords": []})
     }
 })
 

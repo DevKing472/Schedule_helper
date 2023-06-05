@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 import axios from 'axios';  
  
   const Table = ({ data }) => (
-    <div style={{ height: '350px', overflowY: 'auto', marginTop: '10px' }}>
+    <div style={{ height: '200px', overflowY: 'auto', marginTop: '10px' }}>
     <table style={{ width: '100%', borderCollapse: 'collapse',marginTop:"10px"}}>
       <thead>
         <tr style={{ backgroundColor: '#A82121', color: '#FFF' }}>
