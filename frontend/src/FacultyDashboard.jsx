@@ -19,7 +19,9 @@ import ExamScheduleTable from './View_Schedule/View_Schedule';
 import FacultyScheduleTable from './View_Faculty_Sched/View_Faculty_Sched';
 import Faculty_Edit_Profile from './Faculty_Edit_Profile/Faculty_Edit_Profile';
 import RequestAdmin from './Request_Admin/Request_Admin';
+import RequestFaculty from './Request_Faculty/Request_Faculty';
 import Faculty_Cards from './Faculty_Cards/Faculty_Cards';
+import ViewRequest from './View_Requests/View_Requests';
 
 
 function FacultyDashboard() 
@@ -63,6 +65,12 @@ function FacultyDashboard()
 
   const handleAdminRequest = () => {setActivePage("Request Admin")}
 
+  const handleFacultyRequest = () => {setActivePage("Request Faculty")}
+
+  const handleViewRequest = () => {setActivePage("View Request")}
+
+
+
   const contentloader = () => {
     switch (activePage) {
       case 'Home':
@@ -77,7 +85,7 @@ function FacultyDashboard()
             </div>
           </div>
           <div>
-          <Faculty_Cards handleadminRequest={handleAdminRequest}/>
+          <Faculty_Cards handleadminRequest={handleAdminRequest} handlefacultyRequest={handleFacultyRequest} handleviewRequest={handleViewRequest}/>
         </div>
         </div>
         )
@@ -89,6 +97,10 @@ function FacultyDashboard()
         return <Faculty_Edit_Profile/>
       case "Request Admin":
         return <RequestAdmin />
+      case "Request Faculty":
+        return <RequestFaculty />
+      case "View Request":
+        return <ViewRequest/>
       default:
         return null;
     }

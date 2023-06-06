@@ -55,7 +55,7 @@ function Faculty_Cards(props)
       }
 
       const handleviewRequest = ()=> {
-        props.handleviewRequests();
+        props.handleviewRequest();
       }
 
     return (

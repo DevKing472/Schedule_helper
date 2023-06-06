@@ -22,6 +22,7 @@ const otptab = database.collection("EAH_otp")
 const alerttable = database.collection("EAH_alerts")
 const timetable = database.collection("EAH_timetable")
 const adminrequest = database.collection("EAH_adminrequest")
+const facultyrequest = database.collection("EAH_facultyrequest")
 
 const faculty_list = ["Pradeep Karthik M","Sabarish B","Jayandar S","Logeswaran S R","Kishore S","Aaditya S"]
 const hall_list = ["A101","A102","A103","B103","C101","A104"]
@@ -60,7 +61,7 @@ const transporter = nodeMailer.createTransport({
   {
     //use the name to find the email and send the content
 
-    console.log("Got SendMail")
+    console.log("Got SendMail",name)
 
     const query = {
         name: name
@@ -125,6 +126,20 @@ async function deleteExpired()
 
             const result = await adminrequest.deleteOne({_id: new ObjectId(id)});
             console.log("DeleteAdminRequest",id)
+        }
+
+        catch(err)
+        {
+            console.log(err)
+        }
+
+    }
+
+    async function deleteFacultyRequest(id){
+        try{
+
+            const result = await facultyrequest.deleteOne({_id: new ObjectId(id)});
+            console.log("DeleteFacultyRequest",id)
         }
 
         catch(err)
@@ -486,9 +501,62 @@ app.post("/request_admin",async (req,res) =>
     res.status(200).send()
 })
 
+app.post("/request_faculty",async (req,res) => 
+{
+
+    console.log("Got request for Requesting Faculty an exam")
+
+    let reqobj = req.body.formdata
+    let objecttoupdate = {}
+
+    objecttoupdate.rowid = reqobj._id
+    objecttoupdate.date = reqobj.date 
+    objecttoupdate.TimeSlot = reqobj.TimeSlot
+    objecttoupdate.Invigilator = reqobj.Invigilator
+    objecttoupdate.Hall = reqobj.Hall
+    objecttoupdate.course = reqobj.course
+    objecttoupdate.Reason = reqobj.Reason
+    objecttoupdate.src_invigilator = reqobj.src_invigilator
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    
+    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;   
+
+    objecttoupdate.reqdate = formattedDate
+    
+    console.log("Formdata",objecttoupdate)
+
+    const result = await facultyrequest.insertOne(objecttoupdate)
+
+    await sendemail("Re: Received Request from "+objecttoupdate.src_invigilator+" for Alternate Invigilation","Hi,\nThe exam: "+objecttoupdate.course+" has been requested for an Alternate Invigilator by "+objecttoupdate.src_invigilator+"\nHere's the description for the request:\n"+objecttoupdate.Reason+"\nKindly Visit the Website to swap the invigilation!\nThank You!",objecttoupdate.Invigilator)
+
+    res.status(200).send()
+})
+
 app.post("/fetch_admin_requests",async (req,res)=>{
 
     const result = await adminrequest.find({}).toArray()
+
+    if(result != null)
+    {
+        res.status(200).send({"requestrecords": result})
+    }
+    else{
+        res.status(404).send()
+    }
+})
+
+
+app.post("/fetch_faculty_requests",async (req,res)=>{
+
+    console.log("Get faculty requests fetcher")
+
+    const result = await facultyrequest.find({}).toArray()
 
     if(result != null)
     {
@@ -599,6 +667,102 @@ app.post("/reject_request",async (req,res) =>
         await deleteAdminRequest(deleteid)
 
         await sendemail("Re: Request for"+objtoUpdate.course+" Rejected","Hi,\nYour Reschedule request for "+objtoUpdate.course+" has been rejected by the admin.\nHere's the Remarks given by him:\n"+objtoUpdate.remarks+"\nThank You.",objtoUpdate.Invigilator)
+
+        console.log("reject request",result)
+
+        res.status(200).send()
+    }
+    else{
+        res.status(404).send()
+    }
+})
+
+app.post("/accept_faculty_request",async (req,res) => 
+{
+    console.log("Got request for accepting a faculty request")
+
+    id = req.body.formdata.rowid
+    deleteid = req.body.formdata._id
+
+    let objecttoupdate = req.body.formdata
+
+    src_invigilator = objecttoupdate.src_invigilator
+    remarks = objecttoupdate.remarks
+
+    // console.log(id)
+    console.log("Formdata",objecttoupdate)
+
+    const result = await timetable.findOne( {_id: new ObjectId(id)})
+
+    if(result != null)
+    {
+        const filter =  {_id: new ObjectId(id)};
+
+        const objtoUpdate = {}
+
+        objtoUpdate.date = objecttoupdate.date
+        objtoUpdate.TimeSlot = objecttoupdate.TimeSlot
+        objtoUpdate.Invigilator = objecttoupdate.Invigilator
+        objtoUpdate.Hall = objecttoupdate.Hall 
+        objtoUpdate.course = objecttoupdate.course
+        objtoUpdate.remarks = objecttoupdate.remarks
+
+        const update = { $set: objtoUpdate};
+
+        const result = await timetable.updateOne(filter, update);
+
+        await enterintoalert("The exam: "+objtoUpdate.course+" has been changed to "+objtoUpdate.date+" "+objtoUpdate.TimeSlot+" in "+objtoUpdate.Hall+" invigilated by "+objtoUpdate.Invigilator)
+
+        await deleteFacultyRequest(deleteid)
+
+        await sendemail("Re: Request for"+objtoUpdate.course+" Accepted","Hi,\nYour Swap request for "+objtoUpdate.course+" has been accepted by "+objecttoupdate.Invigilator+"\nHere's the Remarks given by him:\n"+remarks+"\nThank You.",src_invigilator)
+
+        console.log("accept request",result)
+
+        res.status(200).send()
+    }
+    else{
+        res.status(404).send()
+    }
+})
+
+app.post("/reject_faculty_request",async (req,res) => 
+{
+    console.log("Got request for rejecting a faculty request")
+
+    id = req.body.formdata.rowid
+    deleteid = req.body.formdata._id
+
+    let objecttoupdate = req.body.formdata
+
+    // console.log(id)
+    console.log("Formdata",objecttoupdate)
+
+    const result = await timetable.findOne( {_id: new ObjectId(id)})
+
+    if(result != null)
+    {
+        // const filter =  {_id: new ObjectId(id)};
+
+        const objtoUpdate = {}
+
+        objtoUpdate.date = objecttoupdate.date
+        objtoUpdate.TimeSlot = objecttoupdate.TimeSlot
+        objtoUpdate.Invigilator = objecttoupdate.Invigilator
+        objtoUpdate.Hall = objecttoupdate.Hall 
+        objtoUpdate.course = objecttoupdate.course
+        objtoUpdate.remarks = objecttoupdate.remarks
+        objtoUpdate.src_invigilator = objecttoupdate.src_invigilator
+
+        // const update = { $set: objtoUpdate};
+
+        // const result = await timetable.updateOne(filter, update);
+
+        // await enterintoalert("The exam: "+objtoUpdate.course+" has been changed to "+objtoUpdate.date+" "+objtoUpdate.TimeSlot+" in "+objtoUpdate.Hall+" invigilated by "+objtoUpdate.Invigilator)
+
+        await deleteFacultyRequest(deleteid)
+
+        await sendemail("Re: Request for"+objtoUpdate.course+" Rejected","Hi,\nYour Reschedule request for "+objtoUpdate.course+" has been rejected by "+objtoUpdate.Invigilator+"\nHere's the Remarks given by him:\n"+objtoUpdate.remarks+"\nThank You.",objtoUpdate.src_invigilator)
 
         console.log("reject request",result)
 
