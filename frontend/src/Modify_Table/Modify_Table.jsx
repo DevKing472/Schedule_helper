@@ -67,7 +67,7 @@ const ExamTable = () => {
   
           dataval.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        console.log(dataval)
+          console.log(dataval)
   
           setExams(dataval)
           

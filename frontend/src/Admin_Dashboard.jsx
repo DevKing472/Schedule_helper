@@ -16,8 +16,8 @@ import MenuItem from '@mui/material/MenuItem';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import ExamScheduleTable from './View_Schedule/View_Schedule';
 import Admin_Edit_Profile from "./Admin_Edit_Profile/Admin_Edit_Profile"
-import AdminEditCard from "./assets/Admin_Edit_Card/AdminEditCard"
 import ExamTable from './Modify_Table/Modify_Table';
+import Admin_View_Request from "./Admin_View_Request/Admin_View_Request"
 
 function AdminDashboard() 
 {
@@ -59,12 +59,12 @@ function AdminDashboard()
     switch (activePage) {
       case 'Home':
         return (
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: 6 }}>
+          <div style={{ display: 'flex',flexDirection:"row",justifyItems:"center",height:"500px" }}>
+            <div style={{ flex: 5 }}>
               <CardDemo/>
             </div>
-            <div style={{ flex: 4 }}>
-              <AdminEditCard handlemodify={handleModify} />
+            <div style={{ flex: 5 }}>
+              <Admin_View_Request handlemodify={handleModify} />
             </div>
           </div>
         )

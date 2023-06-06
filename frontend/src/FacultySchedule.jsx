@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 
-
 const alertData = [
   { date: '2023-05-14', course: 'Alert description 1', hall: 'Hall A' },
   { date: '2023-05-15', course: 'Alert description 2', hall: 'Hall B' },
