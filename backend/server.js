@@ -556,7 +556,9 @@ app.post("/fetch_faculty_requests",async (req,res)=>{
 
     console.log("Get faculty requests fetcher")
 
-    const result = await facultyrequest.find({}).toArray()
+    name = req.body.name
+
+    const result = await facultyrequest.find({Invigilator: name}).toArray()
 
     if(result != null)
     {
