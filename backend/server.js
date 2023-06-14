@@ -150,12 +150,14 @@ async function deleteExpired()
     }
 
 app.post("/loginuser",async (req, res) => {
-    console.log("Got login")
+   
 
     const query = {
         email: req.body.email,
         password: req.body.password
     }
+
+    console.log("Got login",query)
 
     const result = await logintab.findOne(query);
 
