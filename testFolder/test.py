@@ -19,6 +19,7 @@ login_form = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "sign-i
 # Fill in the email and password fields
 email_input = login_form.find_element(By.CSS_SELECTOR, "input[name='user_email']")
 password_input = login_form.find_element(By.CSS_SELECTOR, "input[name='user_password']")
+
 email_input.send_keys("cb.en.u4cse20447@cb.students.amrita.edu")
 password_input.send_keys("PRAD2003")
 
