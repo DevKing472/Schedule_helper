@@ -75,6 +75,7 @@ Exam Alteration Helper is a software tool designed to assist in scheduling and r
 <br/>
 ![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/0cb8cfcb-e5bd-44b3-b0bf-0530c8265a28)
 <br/>
+## Admin Dashboard
 ![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/0352f62e-f192-41d4-9af8-f097bb3dc3ad)
 <br/>
 ![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/6795da80-8e6a-4ab0-8930-8b489b8ddfb4)
