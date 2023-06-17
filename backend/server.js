@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const uri = "mongodb+srv://pradeep:eahuser@backgroundcluster.pzm6kzq.mongodb.net/?retryWrites=true&w=majority";
+const uri = "<your_mongo_uri>";
 
 const client = new MongoClient(uri);
 
