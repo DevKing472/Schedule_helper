@@ -57,34 +57,38 @@ Exam Alteration Helper is a software tool designed to assist in scheduling and r
 
 ## UI Screenshots:
 
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/fb322308-e6c5-4c51-9a68-9ad4ec8550af)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/91f13f41-bbb1-4714-856e-dc0bd6637792)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/0c7510f7-924a-4ceb-ae66-e9506456c70a)
+### Faculty Dashboard:
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/49e70ef4-cae6-47eb-9903-bffaa4ad9b9b)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/06dcab97-aa70-41eb-904e-19a28d49dbfe)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/e0c2d55c-c7e8-446a-b54c-60d630708631)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/c94ba865-01bf-4e40-8dd9-59f516118a0a)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/919f48ab-874a-4fe7-ab01-5d9d45cffc45)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/3bdb0385-2d71-4c92-b8a3-b1e7d88d95a4)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/2bf84aef-1d49-45fc-a7e3-bf73667a997a)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/e57a15f7-2ca6-4713-9d9f-34a49c06ff38)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/87a4643f-0aa2-44b3-b2b4-c2482ffd3cd4)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/c9f5ddc6-6a41-4704-98c8-67d0e441bab0)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/6f33d915-3f57-4173-bcac-5199b24019b6)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/f700ed56-d20e-4f89-bc15-9833754d4b6c)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/41481de4-a000-4061-890b-399a2378ab21)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/0cb8cfcb-e5bd-44b3-b0bf-0530c8265a28)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/d1194b37-b44e-4cab-986e-2b975b83befc)
 <br/>
 ## Admin Dashboard
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/0352f62e-f192-41d4-9af8-f097bb3dc3ad)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/3adf2dec-2f92-4446-9c3e-0a79595d99dc)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/6795da80-8e6a-4ab0-8930-8b489b8ddfb4)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/87de89e9-ba4f-4edf-ab57-6b0b07953fc5)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/0231ef52-2569-4d51-8a85-edea39b22036)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/4fffccbc-6a62-48aa-997e-7ab307bfd1fc)
 <br/>
-![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/4fc75857-936f-4e90-a43b-10fe501a57a7)
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/4da422f9-8cd3-4d0e-9aaf-24005699a261)
 <br/>
-
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/635a896f-764d-4337-933e-1162c8907d4f)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/89c3ecc6-c933-49b6-ab73-2b3baf2b1039)
+<br/>
 
 
 ## Contributing
