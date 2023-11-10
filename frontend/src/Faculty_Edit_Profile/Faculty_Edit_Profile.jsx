@@ -11,6 +11,7 @@ const Faculty_Edit_Profile = () => {
 
   const [firstName, setFirstName] = useState(ProfileData.fname);
   const [lastName, setLastName] = useState(ProfileData.lname);
+  const [profileImage,setprofileImage] = useState("https://t4.ftcdn.net/jpg/01/18/03/35/360_F_118033506_uMrhnrjBWBxVE9sYGTgBht8S5liVnIeY.jpg");
   const [email, setEmail] = useState(ProfileData.email);
   const [phone, setPhone] = useState(ProfileData.mobile);
   const [newPassword, setNewPassword] = useState("");
@@ -18,6 +19,14 @@ const Faculty_Edit_Profile = () => {
   const [designation, setDesignation] = useState(ProfileData.designation);
   const [department, setDepartment] = useState(ProfileData.department);
   const [emailNotifications, setEmailNotifications] = useState(ProfileData.email_sub);
+
+  const [image, setImage] = useState(null);
+
+  const handleFileChange = (e) => {
+    const selectedImage = e.target.files[0];
+    setImage(selectedImage);
+  };
+
   // const [updatedValues, setUpdatedValues] = useState(null);
   // const [isUpdated, setIsUpdated] = useState(false);
 
@@ -34,6 +43,7 @@ const Faculty_Edit_Profile = () => {
           let alertval = response.data.editrecords
 
           setProfileData(alertval)
+          setprofileImage(alertval.img_url)
           setFirstName(alertval.fname)
           setLastName(alertval.lname)
           setEmail(alertval.email)
@@ -101,6 +111,21 @@ const Faculty_Edit_Profile = () => {
 
   const handlenotificationunsetter = (e) => {
     setEmailNotifications(false);
+  };
+
+  const handleProfileEdit = async ()=> {
+
+    // Send the image to the backend
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('email',email);
+
+    try {
+      const response = await axios.post('http://localhost:5000/update_image', formData);
+      setprofileImage(response.data.imageUrl);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
   };
 
   const validateForm = ()=>
@@ -203,14 +228,23 @@ const Faculty_Edit_Profile = () => {
   };
   
   return (
-    <div className="formbold-main-wrapper">
+<div className="formbold-main-wrapper">
       <div className="formbold-form-wrapper">
         <div className="formbold-profile-photo">
-        <img src="https://t4.ftcdn.net/jpg/01/18/03/35/360_F_118033506_uMrhnrjBWBxVE9sYGTgBht8S5liVnIeY.jpg" alt="" class="formbold-profile-img" />
-      </div>
-      <h2>My Profile</h2>
-      <br />
-      <br />
+          <img
+            src= {profileImage}
+            alt=""
+            className="formbold-profile-img"
+          />
+            <div className="edit-button">
+              
+              <input type="file" onChange={handleFileChange} accept="image/*" />
+              <button onClick={handleProfileEdit}>Edit Profile Picture</button>
+            </div>
+        </div>
+        <h2>My Profile</h2>
+        <br />
+        <br />
       <form action="https://formbold.com/s/FORM_ID" method="POST" onSubmit={handleSubmit}>
         <div className="formbold-input-flex">
           <div>

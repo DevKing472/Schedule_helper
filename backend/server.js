@@ -2,13 +2,25 @@ const express = require("express");
 const MongoClient = require('mongodb').MongoClient
 const { ObjectId } = require('mongodb');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const { Storage } = require('@google-cloud/storage');
 const config = require('./config.json');
+const { v4: uuidv4 } = require('uuid');
 
 const nodeMailer = require('nodemailer');
 
 const app = express();
 
+const storage = new Storage({
+    projectId: config.projectId, // Replace with your Google Cloud project ID
+    keyFilename: 'key.json', // Replace with the path to your service account key JSON file
+  });
+
+const bucketName = config.bucketName;
+
 const cors = require('cors');
+const multerStorage = multer.memoryStorage(); // You can change this to store files on disk
+const upload = multer({ storage: multerStorage });
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -186,6 +198,48 @@ function generateRandomNumber() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  app.post('/update_image', upload.single('image'), async (req, res) => {
+
+    try {
+        if (!req.file) {
+          return res.status(400).json({ error: 'No file provided' });
+        }
+
+        const filter = {email: req.body.email };
+    
+        const fileBuffer = req.file.buffer;
+    
+        // Generate a unique filename for the uploaded image
+        const filename = `${uuidv4()}-${req.file.originalname}`;
+    
+        // Upload the image to Google Cloud Storage
+        const file = storage.bucket(bucketName).file(filename);
+        await file.save(fileBuffer);
+    
+        // Get the access URL of the uploaded image
+        const accessUrl = `https://storage.googleapis.com/${bucketName}/${filename}`;
+    
+        // Process the image or save information to the database, etc.
+
+        let objtoUpdate = {}
+
+        objtoUpdate.profile_img = accessUrl;
+        
+        const update = { $set:objtoUpdate };
+
+        const result = await logintab.updateOne(filter, update);
+
+        // console.log(accessUrl);
+    
+        // Respond with success and the access URL
+        res.send({ success: true, imageUrl: accessUrl });
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+  });
+
 app.post("/forget_email",async (req, res) => {
     console.log("Got forget_email")
 
@@ -324,6 +378,8 @@ app.post("/fetch_edit_profile",async (req,res) =>
 
     const result = await logintab.findOne({email: email})
 
+    var img_url = result.profile_img;
+
     var username =result.name  
 
     var nameArray = username.split(' ');
@@ -339,7 +395,8 @@ app.post("/fetch_edit_profile",async (req,res) =>
         mobile: result.mobile,
         designation: result.designation,
         department: result.department,
-        email_sub: result.email_sub
+        email_sub: result.email_sub,
+        img_url: img_url
     }
 
     if(result != null)
