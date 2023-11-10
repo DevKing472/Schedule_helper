@@ -2,6 +2,7 @@ const express = require("express");
 const MongoClient = require('mongodb').MongoClient
 const { ObjectId } = require('mongodb');
 const bodyParser = require('body-parser');
+const config = require('./config.json');
 
 const nodeMailer = require('nodemailer');
 
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const uri = "mongodb+srv://pradeep:eahuser@backgroundcluster.pzm6kzq.mongodb.net/?retryWrites=true&w=majority";
+const uri = config.mongoURI;
 
 const client = new MongoClient(uri);
 
@@ -30,8 +31,8 @@ const hall_list = ["A101","A102","A103","B103","C101","A104"]
 const transporter = nodeMailer.createTransport({
     service: "gmail",
     auth: {
-      user: "caloriettrackerauth@gmail.com",
-      pass: "apfbshzhnkuynhtd",
+      user: config.emailSender,
+      pass: config.emailPassword,
       authType: "plain"
     }   
   });
@@ -74,7 +75,7 @@ const transporter = nodeMailer.createTransport({
         const email = result.email;
 
         const mailOptions = {
-            from: "caloriettrackerauth@gmail.com", // sender address
+            from: config.emailSender, // sender address
             to: email,
             subject: subject, // Subject line
             text: content, // plain text body
@@ -201,7 +202,7 @@ app.post("/forget_email",async (req, res) => {
         otp = generateRandomNumber()
 
         const mailOptions = {
-            from: "caloriettrackerauth@gmail.com", // sender address
+            from: config.emailSender, // sender address
             to: email_id,
             subject: "OTP Verification for Exam Alteration Helper", // Subject line
             text: "Hello,\n Your generated OTP for login is: "+otp+"\nThanks!!!", // plain text body
@@ -291,7 +292,7 @@ app.post("/fetch_faculty_sched",async (req,res) =>
         res.status(200).send({"schedulerecords": result})
     }
     else{
-        res.status(20).send({"schedulerecords": []})
+        res.status(200).send({"schedulerecords": []})
     }
 })
 
