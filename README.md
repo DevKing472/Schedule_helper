@@ -32,6 +32,17 @@ Exam Alteration Helper is a software tool designed to assist in scheduling and r
 2. Install the project dependencies: `npm install`
 3. Start the development server: `node server.js`
 
+### testFolder:
+1. Install Selenium webdriver in your python environment.
+2. Navigate to the testFolder: `cd testFolder`
+3. Run the Selenium Test: `python test.py`
+4. Load Testing
+* Open Jmeter
+* Load the LoadTest.jmx file
+* Get the Server up and running
+* Customize the Number of Users and Ramp-up period
+* Run the Load Test
+
 ## Technologies Used
 
 - ReactJS: Front-end JavaScript library for building user interfaces.
@@ -39,6 +50,46 @@ Exam Alteration Helper is a software tool designed to assist in scheduling and r
 - Node.js: JavaScript runtime environment.
 - Express.js: Web application framework for Node.js.
 - MongoDB: NoSQL database for storing user and exam data.
+- Selenium Webdriver: For Integration Testing the website.
+- Apache Jmeter: For Load Testing the Server.
+- SonarQube: For Static Code analysis
+- Postman and Thunder client: For API testing
+
+## UI Screenshots:
+
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/91f13f41-bbb1-4714-856e-dc0bd6637792)
+<br/>
+### Faculty Dashboard:
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/49e70ef4-cae6-47eb-9903-bffaa4ad9b9b)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/e0c2d55c-c7e8-446a-b54c-60d630708631)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/919f48ab-874a-4fe7-ab01-5d9d45cffc45)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/2bf84aef-1d49-45fc-a7e3-bf73667a997a)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/87a4643f-0aa2-44b3-b2b4-c2482ffd3cd4)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/6f33d915-3f57-4173-bcac-5199b24019b6)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/41481de4-a000-4061-890b-399a2378ab21)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/d1194b37-b44e-4cab-986e-2b975b83befc)
+<br/>
+## Admin Dashboard
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/3adf2dec-2f92-4446-9c3e-0a79595d99dc)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/87de89e9-ba4f-4edf-ab57-6b0b07953fc5)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/4fffccbc-6a62-48aa-997e-7ab307bfd1fc)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/4da422f9-8cd3-4d0e-9aaf-24005699a261)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/635a896f-764d-4337-933e-1162c8907d4f)
+<br/>
+![image](https://github.com/pradeepkarthik77/Exam_Alteration_Helper/assets/77573751/89c3ecc6-c933-49b6-ab73-2b3baf2b1039)
+<br/>
+
 
 ## Contributing
 
