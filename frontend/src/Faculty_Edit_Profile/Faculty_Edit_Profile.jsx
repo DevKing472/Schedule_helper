@@ -5,8 +5,7 @@ import axios from 'axios';
 
 const Faculty_Edit_Profile = () => {
 
-    const [ProfileData,setProfileData] = useState({})//useState({"fname":"Pradeep","lname":"Karthik M","email": "cb.en.u4cse20447@cb.students.amrita.edu","mobile":"8825824693","designation":"Professor","department":"CSE","email_sub":"yes"});
-
+    const [ProfileData,setProfileData] = useState({});
     const email_id = localStorage.getItem("UserEmail")
 
   const [firstName, setFirstName] = useState(ProfileData.fname);
